@@ -37,6 +37,14 @@
 	</build>
 	<repositories>
 		<repository>
+			<id>local-maven2</id>
+			<name>local-maven2</name>
+			<url>file://${basedir}/src/main/maven2/repo</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
 			<id>Codehaus Snapshots</id>
 			<url>http://snapshots.repository.codehaus.org/</url>
 			<snapshots>
