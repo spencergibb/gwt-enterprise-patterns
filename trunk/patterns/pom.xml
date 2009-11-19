@@ -12,7 +12,7 @@
 	<artifactId>gwt-ent-patterns</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>gwt-ent-patterns</name>
-	<url>http://maven.apache.org</url>
+	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<build>
 		<plugins>
 			<plugin>
@@ -39,6 +39,18 @@
 			<artifactId>gwt-servlet</artifactId>
 			<version>${gwt.version}</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gin</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+			<version>2.0</version>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
