@@ -4,19 +4,19 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>gwt-ent</artifactId>
-		<groupId>com.googlecode.gwt-enterprise-patterns</groupId>
+		<artifactId>gwt</artifactId>
+		<groupId>us.gibb.dev</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.googlecode.gwt-enterprise-patterns</groupId>
-	<artifactId>gwt-ent-web</artifactId>
+	<groupId>us.gibb.dev</groupId>
+	<artifactId>gwt-web</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>gwt-ent-web</name>
+	<name>gwt-web</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 
 	<build>
-		<finalName>gwt-ent-web</finalName>
+		<finalName>gwt-web</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -39,8 +39,8 @@
 	</build>
 	<dependencies>
 		<dependency>
-		<artifactId>gwt-ent-patterns</artifactId>
-		<groupId>com.googlecode.gwt-enterprise-patterns</groupId>
+		<artifactId>gwt-patterns</artifactId>
+		<groupId>us.gibb.dev</groupId>
 		<version>1.0-SNAPSHOT</version>
 		</dependency>
 		<dependency>

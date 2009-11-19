@@ -1,7 +1,6 @@
-package com.googlecode.gwt_enterprise_patterns.client;
+package us.gibb.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTML;
