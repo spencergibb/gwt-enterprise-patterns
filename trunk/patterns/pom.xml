@@ -4,12 +4,12 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>gwt-ent</artifactId>
-		<groupId>com.googlecode.gwt-enterprise-patterns</groupId>
+		<artifactId>gwt</artifactId>
+		<groupId>us.gibb.dev</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
-	<groupId>com.googlecode.gwt-enterprise-patterns</groupId>
-	<artifactId>gwt-ent-patterns</artifactId>
+	<groupId>us.gibb.dev</groupId>
+	<artifactId>gwt-patterns</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<name>gwt-ent-patterns</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
@@ -34,12 +34,18 @@
 		</plugins>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>com.google.gwt</groupId>
-			<artifactId>gwt-servlet</artifactId>
-			<version>${gwt.version}</version>
-			<scope>runtime</scope>
-		</dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-servlet</artifactId>
+            <version>${gwt.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.gwt</groupId>
+            <artifactId>gwt-user</artifactId>
+            <version>${gwt.version}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gin</artifactId>

@@ -1,4 +1,4 @@
-package com.googlecode.gwt_enterprise_patterns.client.event;
+package us.gibb.gwt.client.event;
 
 @SuppressWarnings("unchecked")
 public abstract class EventHandler<E extends Event> implements com.google.gwt.event.shared.EventHandler {

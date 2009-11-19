@@ -1,4 +1,4 @@
-package com.googlecode.gwt_enterprise_patterns.client.event;
+package us.gibb.gwt.client.event;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 

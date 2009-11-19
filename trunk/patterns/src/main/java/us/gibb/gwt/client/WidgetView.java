@@ -1,4 +1,4 @@
-package com.googlecode.gwt_enterprise_patterns.client;
+package us.gibb.gwt.client;
 
 import com.google.gwt.user.client.ui.Widget;
 

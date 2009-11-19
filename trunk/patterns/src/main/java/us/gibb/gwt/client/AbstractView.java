@@ -1,8 +1,9 @@
-package com.googlecode.gwt_enterprise_patterns.client;
+package us.gibb.gwt.client;
+
+import us.gibb.gwt.client.event.EventBus;
 
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
-import com.googlecode.gwt_enterprise_patterns.client.event.EventBus;
 
 public abstract class AbstractView extends Composite implements WidgetView {
 
