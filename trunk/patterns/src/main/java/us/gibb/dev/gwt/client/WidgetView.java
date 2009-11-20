@@ -1,4 +1,4 @@
-package us.gibb.gwt.client;
+package us.gibb.dev.gwt.client;
 
 import com.google.gwt.user.client.ui.Widget;
 

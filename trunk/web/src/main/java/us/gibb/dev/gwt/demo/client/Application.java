@@ -1,4 +1,4 @@
-package us.gibb.gwt.client;
+package us.gibb.dev.gwt.demo.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.user.client.DOM;

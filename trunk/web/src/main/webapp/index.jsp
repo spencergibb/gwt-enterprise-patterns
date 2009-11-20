@@ -19,7 +19,7 @@
     <!-- If you add any GWT meta tags, they must   -->
     <!-- be added before this line.                -->
     <!--                                           -->
-    <script type="text/javascript" language="javascript" src="us.gibb.gwt.Application.nocache.js"></script>
+    <script type="text/javascript" language="javascript" src="us.gibb.dev.gwt.demo.Application.nocache.js"></script>
     <link type="text/css" rel="stylesheet" href="Application.css">
   </head>
 

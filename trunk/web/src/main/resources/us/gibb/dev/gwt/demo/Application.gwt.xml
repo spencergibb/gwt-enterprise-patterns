@@ -6,13 +6,13 @@
       
       <!-- inherits name="com.google.gwt.inject.Inject"/ -->
       
-      <inherits name="us.gibb.gwt.Patterns"/>
+      <inherits name="us.gibb.dev.gwt.Patterns"/>
 
       <!--  inherit css based theme -->
       <inherits name='com.google.gwt.user.theme.standard.Standard'/>
       
       <!-- Specify the app entry point class.                         -->
-      <entry-point class='us.gibb.gwt.client.Application'/>
+      <entry-point class='us.gibb.dev.gwt.demo.client.Application'/>
 
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />

@@ -1,6 +1,6 @@
-package us.gibb.gwt.client;
+package us.gibb.dev.gwt.client;
 
-import us.gibb.gwt.client.event.EventBus;
+import us.gibb.dev.gwt.client.event.EventBus;
 
 public abstract class AbstractPresenter {
 	private WidgetView view;
