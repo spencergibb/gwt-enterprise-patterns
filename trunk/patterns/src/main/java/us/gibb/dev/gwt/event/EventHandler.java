@@ -1,5 +1,6 @@
-package us.gibb.dev.gwt.client.event;
+package us.gibb.dev.gwt.event;
 
+@SuppressWarnings("unchecked")
 public abstract class EventHandler<E extends Event> implements com.google.gwt.event.shared.EventHandler {
 
 	void handle(E event) {
