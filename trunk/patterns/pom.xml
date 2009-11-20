@@ -17,7 +17,7 @@
 		<repository>
 			<id>local-maven2</id>
 			<name>local-maven2</name>
-			<url>file://${basedir}/src/main/maven2/repo</url>
+			<url>file://${project.basedir}/../src/main/maven2/repo</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>

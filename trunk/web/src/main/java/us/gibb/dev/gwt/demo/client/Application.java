@@ -1,7 +1,10 @@
 package us.gibb.dev.gwt.demo.client;
 
-import us.gibb.dev.gwt.event.DefaultEventBus;
-import us.gibb.dev.gwt.event.EventBus;
+import java.util.HashMap;
+
+import us.gibb.dev.gwt.command.CommandEvent;
+import us.gibb.dev.gwt.command.CommandEventBus;
+import us.gibb.dev.gwt.command.DefaultCommandEventBus;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -51,12 +54,13 @@ public class Application implements EntryPoint {
         final Label labelA = new Label("Label A");
         final Label labelB = new Label("Label B");
         Button buttonA = new Button("Click me");
+        HTML html = new HTML();
         
-        final EventBus bus = new DefaultEventBus();
+        final CommandEventBus bus = new DefaultCommandEventBus();
         
-        bus.addHandler(CommandA.TYPE, new CommandA.Handler() {
-            public void handle(CommandA event) {
-                labelA.setText(labelA.getText()+ " "+event.getData());
+        bus.add(new CommandEvent.Handler<CommandA>(CommandA.class){
+            public void handle(CommandEvent<CommandA> event) {
+                labelA.setText(labelA.getText()+ " "+event.getCommand().getA());
             }});
         
         buttonA.addClickHandler(new ClickHandler() {
@@ -64,10 +68,24 @@ public class Application implements EntryPoint {
                 bus.fire(new CommandA());
             }});
         
+        HashMap<Object, Object> map = new HashMap<Object, Object>();
+        map.put(CommandA.class, new CommandA());
+        map.put(CommandB.class, new CommandB());
+        
+        StringBuilder out = new StringBuilder("<pre>");
+        out.append("CommandA isHandled: "+bus.isHandled(CommandA.class)+"\n");
+        for (Object key : map.keySet()) {
+            Object val = map.get(key);
+            out.append(key+" "+val.getClass().getName()+"\n");
+        }
+        out.append("</pre>");
+        html.setHTML(out.toString());
+
         VerticalPanel verticalPanel = new VerticalPanel();
         verticalPanel.add(labelA);
         verticalPanel.add(labelB);
         verticalPanel.add(buttonA);
+        verticalPanel.add(html);
         return verticalPanel;
     }
 
