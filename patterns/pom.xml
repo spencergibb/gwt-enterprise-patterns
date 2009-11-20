@@ -11,8 +11,18 @@
 	<groupId>us.gibb.dev</groupId>
 	<artifactId>gwt-patterns</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>gwt-ent-patterns</name>
+	<name>gwt-patterns</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
+	<repositories>
+		<repository>
+			<id>local-maven2</id>
+			<name>local-maven2</name>
+			<url>file://${basedir}/src/main/maven2/repo</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
@@ -34,18 +44,18 @@
 		</plugins>
 	</build>
 	<dependencies>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-servlet</artifactId>
-            <version>${gwt.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.google.gwt</groupId>
-            <artifactId>gwt-user</artifactId>
-            <version>${gwt.version}</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-servlet</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.gwt</groupId>
+			<artifactId>gwt-user</artifactId>
+			<version>${gwt.version}</version>
+			<scope>provided</scope>
+		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gin</artifactId>
@@ -56,7 +66,7 @@
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>2.0</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

@@ -6,7 +6,7 @@
 	<artifactId>gwt</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>gwt-ent</name>
+	<name>gwt</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<properties>
 		<gwt.version>2.0.0-ms2</gwt.version>
@@ -36,14 +36,6 @@
 		</plugins>
 	</build>
 	<repositories>
-		<repository>
-			<id>local-maven2</id>
-			<name>local-maven2</name>
-			<url>file://${basedir}/src/main/maven2/repo</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
 		<repository>
 			<id>Codehaus Snapshots</id>
 			<url>http://snapshots.repository.codehaus.org/</url>
