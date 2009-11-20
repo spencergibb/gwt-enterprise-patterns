@@ -9,10 +9,10 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>us.gibb.dev</groupId>
-	<artifactId>gwt-demo</artifactId>
+	<artifactId>gwt-web-demo</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>gwt-demo</name>
+	<name>gwt-web-demo</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 
 	<repositories>
@@ -26,7 +26,7 @@
 		</repository>
 	</repositories>
 	<build>
-		<finalName>gwt-web</finalName>
+		<finalName>gwt-web-demo</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
