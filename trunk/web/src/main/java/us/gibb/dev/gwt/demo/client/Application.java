@@ -1,11 +1,19 @@
 package us.gibb.dev.gwt.demo.client;
 
+import us.gibb.dev.gwt.event.DefaultEventBus;
+import us.gibb.dev.gwt.event.EventBus;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -28,7 +36,7 @@ public class Application implements EntryPoint {
 			//Injector injector = GWT.create(Injector.class);
 			// Add the application display to the RootPanel
 			//RootPanel.get(APP_ID).add(injector.getHelloPresenter().getView().widget());
-	    	RootPanel.get(APP_ID).add(new Label("Hello World"));
+	    	RootPanel.get(APP_ID).add(getWidget());
 
 			displayApp(loading);
 		}
@@ -38,6 +46,30 @@ public class Application implements EntryPoint {
 			RootPanel.get(APP_ID).add(new HTML("<pre>ERROR\n"+e.getMessage()+"</pre>"));
 		}
 	}
+
+    private Widget getWidget() {
+        final Label labelA = new Label("Label A");
+        final Label labelB = new Label("Label B");
+        Button buttonA = new Button("Click me");
+        
+        final EventBus bus = new DefaultEventBus();
+        
+        bus.addHandler(CommandA.TYPE, new CommandA.Handler() {
+            public void handle(CommandA event) {
+                labelA.setText(labelA.getText()+ " "+event.getData());
+            }});
+        
+        buttonA.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                bus.fire(new CommandA());
+            }});
+        
+        VerticalPanel verticalPanel = new VerticalPanel();
+        verticalPanel.add(labelA);
+        verticalPanel.add(labelB);
+        verticalPanel.add(buttonA);
+        return verticalPanel;
+    }
 
 	private void displayApp(Element loading) {
     	if (loading != null) {

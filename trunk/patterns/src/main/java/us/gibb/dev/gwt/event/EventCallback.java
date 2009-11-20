@@ -2,6 +2,7 @@ package us.gibb.dev.gwt.event;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+//TODO: do I need this with commands?
 public abstract class EventCallback<T> implements AsyncCallback<T> {
 
 	private EventBus eventBus;
@@ -18,7 +19,7 @@ public abstract class EventCallback<T> implements AsyncCallback<T> {
 
 	public void onFailure(Throwable t) {
 		Event<T, ?> event = createEvent();
-		event.setThrowable(t);
+		//event.setThrowable(t);
 		eventBus.fire(event);
 	}
 	

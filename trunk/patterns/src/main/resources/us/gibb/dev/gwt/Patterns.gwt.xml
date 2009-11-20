@@ -4,7 +4,8 @@
       <!-- Inherit the core Web Toolkit stuff.                        
       <inherits name='com.google.gwt.user.User'/>-->
 
-      <source path="client" />
-      <source path="service" />
-      <source path="exception" />
+      <source path="command" />
+      <source path="event" />
+      <source path="presenter" />
+      <source path="view" />
 </module>
