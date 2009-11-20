@@ -5,15 +5,15 @@ import us.gibb.dev.gwt.event.EventBus;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.Widget;
 
-public abstract class AbstractWidgetView extends Composite implements WidgetView {
+public abstract class AbstractWidgetView<EB extends EventBus> extends Composite implements WidgetView {
 
-	protected EventBus eventBus;
+	protected EB eventBus;
     
-	public AbstractWidgetView(EventBus eventBus) {
+	public AbstractWidgetView(EB eventBus) {
 		this.eventBus = eventBus;
 	}
 
-	public Widget getView() {
+	public Widget getImpl() {
 	    return this;
 	}
 }
