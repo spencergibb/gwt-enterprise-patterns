@@ -1,11 +1,12 @@
 package us.gibb.dev.gwt.event;
 
-import com.google.gwt.event.shared.GwtEvent.Type;
+import com.google.gwt.event.shared.HandlerRegistration;
+
 
 public interface EventBus {
 
-	public <H extends EventHandler<?>> void addHandler(Type<H> type, H handler);
+    public <E extends Event<T, H>, H extends EventHandler<E>, T> HandlerRegistration add(EventHandler<E> handler);
+    public void fire(Event<?, ?> event);
+    public boolean isHandled(Class<?> typeClass);
 
-	public void fire(Event<?, ?> event);
-	
 }
