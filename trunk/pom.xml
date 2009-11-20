@@ -8,6 +8,34 @@
 	<version>1.0-SNAPSHOT</version>
 	<name>gwt</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
+
+	<organization>
+		<name>dev.gibb.us</name>
+		<url>http://dev.gibb.us</url>
+	</organization>
+
+	<developers>
+		<developer>
+			<name>Spencer Gibb</name>
+			<organization>dev.gibb.us</organization>
+			<organizationUrl>http://spencer.gibb.us</organizationUrl>
+			<roles>
+				<role>Original Developer</role>
+			</roles>
+		</developer>
+	</developers>
+
+	<issueManagement>
+		<system>Google Code</system>
+		<url>http://code.google.com/p/gwt-enterprise-patterns/issues/list</url>
+	</issueManagement>
+
+	<scm>
+		<connection>scm:svn:http://gwt-enterprise-patterns.googlecode.com/svn/trunk/</connection>
+		<developerConnection>scm:svn:https://gwt-enterprise-patterns.googlecode.com/svn/trunk/</developerConnection>
+		<url>http://gwt-enterprise-patterns.googlecode.com/svn/trunk/</url>
+	</scm>
+
 	<properties>
 		<gwt.version>2.0.0-ms2</gwt.version>
 	</properties>
@@ -21,8 +49,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>1.6</source>
+					<target>1.6</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -34,6 +62,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<extensions>
+			<extension>
+				<groupId>org.jvnet.wagon-svn</groupId>
+				<artifactId>wagon-svn</artifactId>
+				<version>1.8</version>
+			</extension>
+		</extensions>
 	</build>
 	<repositories>
 		<repository>
@@ -45,6 +80,11 @@
 			<releases>
 				<enabled>false</enabled>
 			</releases>
+		</repository>
+		<repository>
+			<id>maven2-repository.dev.java.net</id>
+			<name>Java.net Repository for Maven</name>
+			<url>http://download.java.net/maven/2/</url>
 		</repository>
 	</repositories>
 	<pluginRepositories>
@@ -59,4 +99,16 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
+    <distributionManagement>
+        <repository>
+            <id>google-code</id>
+            <name>GWT Enterprise Patterns SVN Repository</name>
+            <url>svn:https://gwt-enterprise-patterns.googlecode.com/svn/maven2</url>
+        </repository>
+        <snapshotRepository>
+            <id>google-code</id>
+            <name>GWT Enterprise Patterns SVN Repository</name>
+            <url>svn:https://gwt-enterprise-patterns.googlecode.com/svn/maven2</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
