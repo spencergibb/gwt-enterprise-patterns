@@ -7,17 +7,11 @@ public abstract class Event<T, H extends EventHandler> extends GwtEvent<H> {
 
 	private T data;
 	
-	private Throwable throwable;
-	
 	public Event() {
 	}
 	
 	public Event(T data) {
 		this.data = data;
-	}
-	
-	public Event(Throwable t) {
-		this.throwable = t;
 	}
 	
 	public T getData() {
@@ -28,15 +22,11 @@ public abstract class Event<T, H extends EventHandler> extends GwtEvent<H> {
 		this.data = data;
 	}
 
-	public Throwable getThrowable() {
-		return throwable;
-	}
-
-	public void setThrowable(Throwable throwable) {
-		this.throwable = throwable;
-	}
-
+	/**
+	 * Implementation of abstract method in GwtEvent
+	 */
 	protected void dispatch(H handler) {
 		handler.handle(this);
 	};
+
 }
