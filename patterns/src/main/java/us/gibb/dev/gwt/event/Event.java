@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.client.event;
+package us.gibb.dev.gwt.event;
 
 import com.google.gwt.event.shared.GwtEvent;
 
