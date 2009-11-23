@@ -32,10 +32,10 @@ public class DefaultCommandEventBus extends DefaultEventBus implements CommandEv
             eventBus.add(new CommandEvent.Handler(commandClass){
                 @Override
                 public void handle(Event event) {
-                    if (!(event.getData() instanceof Command)) {
-                       eventBus.failure("Unable to handle command event of type: "+event.getData().getClass());
+                    if (!(event.getValue() instanceof Command)) {
+                       eventBus.failure("Unable to handle command event of type: "+event.getValue().getClass());
                     }
-                    Command command = (Command) event.getData();
+                    Command command = (Command) event.getValue();
                     dispatch.execute(command, new AsyncCallback<Result>() {
                         public void onFailure(Throwable t) {
                             eventBus.failure(t);

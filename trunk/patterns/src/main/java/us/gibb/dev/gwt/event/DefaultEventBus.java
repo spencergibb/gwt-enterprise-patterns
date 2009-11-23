@@ -3,15 +3,18 @@ package us.gibb.dev.gwt.event;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.gwt.event.logical.shared.ValueChangeEvent;
+import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
+import com.google.gwt.user.client.History;
 
 public class DefaultEventBus extends HandlerManager implements EventBus {
     
-    Map<Class<?>, ClassEventType<?>> typeRegistry = new HashMap<Class<?>, ClassEventType<?>>();
+    Map<Object, EventType<?>> typeRegistry = new HashMap<Object, EventType<?>>();
 
-    private class ClassEventType<H extends com.google.gwt.event.shared.EventHandler> extends GwtEvent.Type<H> {
+    private class EventType<H extends com.google.gwt.event.shared.EventHandler> extends GwtEvent.Type<H> {
     }
     
     private class EventWrapper extends GwtEvent<EventHandler<?>> {
@@ -28,19 +31,23 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
 
         @SuppressWarnings("unchecked")
         public GwtEvent.Type<EventHandler<?>> getAssociatedType() {
-            return (GwtEvent.Type<EventHandler<?>>) typeRegistry.get(event.getTypeClass());
+            return (GwtEvent.Type<EventHandler<?>>) typeRegistry.get(event.getTypeObject());
         }
     }
     
     public DefaultEventBus() {
         super(null);
+        History.addValueChangeHandler(new ValueChangeHandler<String>() {
+            public void onValueChange(ValueChangeEvent<String> event) {
+                fire(LocationChangedEvent.fromString(event.getValue()));
+            }});
     }
     
     public <E extends Event<T, H>, H extends EventHandler<E>, T> HandlerRegistration add(EventHandler<E> handler) {
-        ClassEventType<EventHandler<E>> type = getType(handler.getTypeClass());
+        EventType<EventHandler<E>> type = getType(handler.getTypeObject());
         if (type == null) {
-            type = new ClassEventType<EventHandler<E>>();
-            typeRegistry.put(handler.getTypeClass(), type);
+            type = new EventType<EventHandler<E>>();
+            typeRegistry.put(handler.getTypeObject(), type);
         }
         return addHandler(type, handler);
     }
@@ -50,7 +57,7 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
     }
     
     public boolean isHandled(Class<?> typeClass) {
-        ClassEventType<?> type = getType(typeClass);
+        EventType<?> type = getType(typeClass);
         if (type != null) {
             return super.isEventHandled(type);
         }
@@ -58,8 +65,12 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
     }
 
     @SuppressWarnings("unchecked")
-    protected <E extends Event> ClassEventType<EventHandler<E>> getType(Class<?> typeClass) {
-        return (ClassEventType<EventHandler<E>>) typeRegistry.get(typeClass);
+    protected <E extends Event> EventType<EventHandler<E>> getType(Object typeObject) {
+        return (EventType<EventHandler<E>>) typeRegistry.get(typeObject);
+    }
+    
+    public void changeLocation(String location, String... params) {
+        History.newItem(new LocationChangedEvent(location, params).toString(), false);
     }
 
     @Override
