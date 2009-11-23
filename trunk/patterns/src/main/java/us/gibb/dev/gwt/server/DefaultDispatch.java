@@ -13,10 +13,12 @@ public class DefaultDispatch implements Dispatch {
         this.handlerRegistry = handlerRegistry;
     }
     
+    @SuppressWarnings("unchecked")
     @Override
-    public <C extends Command<R>, R extends Result> R execute(C command) throws CommandException {
-        CommandHandler<C, R> handler = handlerRegistry.findHandler(command);
-        return handler.execute(command);
+    public <R extends Result> R execute(Command<R> command) throws CommandException {
+    //public <C extends Command<R>, R extends Result> R execute(C command) throws CommandException {
+        CommandHandler<?, R> handler = handlerRegistry.findHandler(command);
+        return (R) handler.exec(command);
     }
 
 }

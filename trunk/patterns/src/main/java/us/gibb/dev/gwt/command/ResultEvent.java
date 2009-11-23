@@ -7,15 +7,15 @@ public class ResultEvent<R extends Result> extends Event<R, ResultEvent.Handler<
     private static final long serialVersionUID = -710409787744632889L;
 
     public abstract static class Handler<R extends Result> extends EventHandler<ResultEvent<R>> {
-        private Class<? extends Result> resultClass;
+        private Class<? extends Result> typeClass;
 
-        public Handler(Class<R> commandClass) {
-            this.resultClass = commandClass;
+        public Handler(Class<R> typeClass) {
+            this.typeClass = typeClass;
         }
 
         @Override
         public Class<?> getTypeClass() {
-            return resultClass;
+            return typeClass;
         }
         
     }

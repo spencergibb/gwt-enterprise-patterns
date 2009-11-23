@@ -9,6 +9,11 @@ import us.gibb.dev.gwt.command.Result;
 
 public abstract class CommandHandler<C extends Command<R>, R extends Result> {
     public abstract R execute(C command) throws CommandException;
+    
+    @SuppressWarnings("unchecked")
+    public Result exec(Command command) throws CommandException {
+        return execute((C) command);
+    }
 
     @SuppressWarnings("unchecked")
     public Class<? extends Command<?>> getCommandClass() {
