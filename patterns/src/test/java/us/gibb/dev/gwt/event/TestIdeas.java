@@ -1,7 +1,6 @@
 package us.gibb.dev.gwt.event;
 
 public class TestIdeas {
-
     public static void main(String[] args) {
         EB eventBus = new EB();
         eventBus.add(CommandA.class, new CmdEvent.Handler<CommandA>() {

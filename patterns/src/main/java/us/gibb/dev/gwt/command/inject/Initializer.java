@@ -1,7 +1,4 @@
-package us.gibb.dev.gwt.demo.client;
-
-import java.util.ArrayList;
-import java.util.List;
+package us.gibb.dev.gwt.command.inject;
 
 import us.gibb.dev.gwt.command.Command;
 import us.gibb.dev.gwt.command.CommandEvent;
@@ -14,25 +11,31 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.inject.Inject;
 
-public class Dispatch {
+/**
+ * Bootstraps the CommandEventBus to handle sending command to the serverside Dispatch classes
+ * and firing Results
+ * 
+ * TODO: need to inject a client side error handler
+ *
+ */
+public class Initializer {
 
-    private CommandEventBus eventBus;
     private DispatchAsync dispatch;
-    private List<Class<? extends Command<?>>> commands;
-
+    private CommandEventBus eventBus;
+    private CommandClasses classes;
+    
     @Inject
-    public Dispatch(CommandEventBus eventBus, DispatchAsync dispatch) {
+    public Initializer(CommandEventBus eventBus, DispatchAsync dispatch, CommandClasses classes) {
         this.eventBus = eventBus;
         this.dispatch = dispatch;
-        commands = new ArrayList<Class<? extends Command<?>>>();
-        commands.add(HelloCommand.class);
-  
+        this.classes = classes;
+        
         init();
     }
 
     @SuppressWarnings("unchecked")
     private void init() {
-        for (Class<? extends Command<?>> commandClass : commands) {
+        for (Class<? extends Command<?>> commandClass : classes.getCommands()) {
             eventBus.add(new CommandEvent.Handler(commandClass){
                 @Override
                 public void handle(Event event) {
@@ -51,5 +54,5 @@ public class Dispatch {
                 }});
         }
     }
-    
+
 }
