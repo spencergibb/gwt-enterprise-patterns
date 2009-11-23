@@ -62,4 +62,19 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
         return (ClassEventType<EventHandler<E>>) typeRegistry.get(typeClass);
     }
 
+    @Override
+    public void failure(String msg) {
+        fire(new FailureEvent(msg));
+    }
+
+    @Override
+    public void failure(Throwable t) {
+        fire(new FailureEvent(t));
+    }
+
+    @Override
+    public void failure(String msg, Throwable t) {
+        fire(new FailureEvent(msg, t));
+    }
+
 }
