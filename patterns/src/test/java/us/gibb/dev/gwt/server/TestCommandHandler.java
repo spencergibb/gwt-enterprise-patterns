@@ -6,7 +6,9 @@ import us.gibb.dev.gwt.command.TestResult;
 import us.gibb.dev.gwt.server.inject.DispatchModule;
 
 import com.google.inject.Guice;
+import com.google.inject.Singleton;
 
+@Singleton
 public class TestCommandHandler extends CommandHandler<TestCommand, TestResult> {
 
     @Override
@@ -23,4 +25,5 @@ public class TestCommandHandler extends CommandHandler<TestCommand, TestResult> 
             scan(TestCommandHandler.class.getPackage());
         }});
     }
+
 }

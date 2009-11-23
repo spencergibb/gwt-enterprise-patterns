@@ -7,4 +7,6 @@ public interface CommandHandlerRegistry {
     public <C extends Command<R>, R extends Result> CommandHandler<C, R> findHandler(C command);
 
     public void clear();
+    
+    public void add(CommandHandler<?, ?> handler) ;
 }
