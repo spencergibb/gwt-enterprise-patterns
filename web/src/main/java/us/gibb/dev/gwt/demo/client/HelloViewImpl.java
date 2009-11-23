@@ -2,9 +2,11 @@ package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
+import us.gibb.dev.gwt.event.FailureEvent;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasValue;
@@ -36,6 +38,22 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
         eventBus.add(new ResultEvent.Handler<HelloResult>(HelloResult.class){
             public void handle(ResultEvent<HelloResult> event) {
                 label.setText(event.getResult().getHello());
+            }});
+        
+        eventBus.add(new FailureEvent.Handler() {
+            public void handle(FailureEvent event) {
+                StringBuilder out = new StringBuilder();
+                if (event.getMessage() != null) {
+                    out.append(event.getMessage());
+                }
+                if (event.getMessage() != null && event.getThrowable() != null) {
+                    out.append(" ");
+                }
+                if (event.getThrowable() != null) {
+                    out.append("Caused by: ");
+                    out.append(event.getThrowable());
+                }
+                Window.alert(out.toString());
             }});
 
         initWidget(verticalPanel);
