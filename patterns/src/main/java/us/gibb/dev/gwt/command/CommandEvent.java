@@ -14,7 +14,7 @@ public class CommandEvent<C extends Command<?>> extends Event<C, CommandEvent.Ha
         }
 
         @Override
-        public Class<?> getTypeClass() {
+        public Object getTypeObject() {
             return commandClass;
         }
         
@@ -25,11 +25,11 @@ public class CommandEvent<C extends Command<?>> extends Event<C, CommandEvent.Ha
     }
     
     public C getCommand() {
-        return getData();
+        return getValue();
     }
     
     @Override
-    public Class<?> getTypeClass() {
+    public Object getTypeObject() {
         return getCommand().getClass();
     }
 

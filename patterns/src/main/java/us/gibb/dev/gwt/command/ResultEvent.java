@@ -14,7 +14,7 @@ public class ResultEvent<R extends Result> extends Event<R, ResultEvent.Handler<
         }
 
         @Override
-        public Class<?> getTypeClass() {
+        public Object getTypeObject() {
             return typeClass;
         }
         
@@ -25,11 +25,11 @@ public class ResultEvent<R extends Result> extends Event<R, ResultEvent.Handler<
     }
     
     public R getResult() {
-        return getData();
+        return getValue();
     }
 
     @Override
-    public Class<?> getTypeClass() {
+    public Object getTypeObject() {
         return getResult().getClass();
     }
 }

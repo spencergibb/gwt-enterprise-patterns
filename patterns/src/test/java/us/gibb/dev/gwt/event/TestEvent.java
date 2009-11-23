@@ -9,7 +9,7 @@ package us.gibb.dev.gwt.event;
 public class TestEvent extends Event<String, TestEvent.Handler> {
     
     public static abstract class Handler extends EventHandler<TestEvent> {
-        public Class<TestEvent> getTypeClass() {
+        public Object getTypeObject() {
             return TestEvent.class;
         }
     }

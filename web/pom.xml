@@ -45,6 +45,32 @@
 					<style>DETAILED</style><!-- OBF -->
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER
+                        </classpathContainer>
+						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER/${gwt.version}
+                        </classpathContainer>
+					</classpathContainers>
+					<projectnatures>
+						<java.lang.String>org.eclipse.jdt.core.javanature
+                        </java.lang.String>
+						<java.lang.String>com.google.gwt.eclipse.core.gwtNature
+                        </java.lang.String>
+					</projectnatures>
+					<buildcommands>
+						<java.lang.String>org.eclipse.jdt.core.javabuilder
+                        </java.lang.String>
+						<java.lang.String>com.google.gwt.eclipse.core.gwtProjectValidator
+                        </java.lang.String>
+					</buildcommands>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>

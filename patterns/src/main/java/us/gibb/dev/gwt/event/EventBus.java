@@ -8,6 +8,9 @@ public interface EventBus {
     public <E extends Event<T, H>, H extends EventHandler<E>, T> HandlerRegistration add(EventHandler<E> handler);
     public void fire(Event<?, ?> event);
     public boolean isHandled(Class<?> typeClass);
+    
+    public void changeLocation(String location, String... params);
+    
     public void failure(String msg);
     public void failure(Throwable t);
     public void failure(String msg, Throwable t);

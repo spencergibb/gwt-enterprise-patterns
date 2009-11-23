@@ -3,7 +3,7 @@ package us.gibb.dev.gwt.event;
 public class FailureEvent extends Event<String, FailureEvent.Handler> {
     
     public static abstract class Handler extends EventHandler<FailureEvent> {
-        public Class<FailureEvent> getTypeClass() {
+        public Object getTypeObject() {
             return FailureEvent.class;
         }
     }
@@ -23,7 +23,7 @@ public class FailureEvent extends Event<String, FailureEvent.Handler> {
     }
     
     public String getMessage() {
-        return getData();
+        return getValue();
     }
     
     public Throwable getThrowable() {
