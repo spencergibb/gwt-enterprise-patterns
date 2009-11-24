@@ -15,8 +15,34 @@
 	<name>gwt-web-demo</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<build>
-		<finalName>gwt-web-demo</finalName>
+		<finalName>${project.artifactId}</finalName>
+		<outputDirectory>war/WEB-INF/classes</outputDirectory>
 		<plugins>
+			<plugin>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webappDirectory>${basedir}/war</webappDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.datanucleus</groupId>
+				<artifactId>maven-datanucleus-plugin</artifactId>
+				<version>1.1.4</version>
+				<configuration>
+					<verbose>true</verbose>
+					<api>JPA</api>
+					<mappingIncludes>**/*.jdo, **/model/**.class</mappingIncludes>
+					<enhancerName>ASM</enhancerName>
+				</configuration>
+				<executions>
+					<execution>
+						<phase>compile</phase>
+						<goals>
+							<goal>enhance</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
@@ -32,6 +58,7 @@
 				</executions>
 				<configuration>
 					<style>DETAILED</style><!-- OBF -->
+					<webappDirectory>${basedir}/war</webappDirectory>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -40,48 +67,88 @@
 				<configuration>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
-					<excludes>
+					<buildOutputDirectory>${basedir}/war/WEB-INF/classes</buildOutputDirectory>
+					<wtpversion>1.5</wtpversion>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<excludes><!-- GAE_CONTAINER already have these jars -->
+						<exclude>com.google.appengine:datanucleus-appengine</exclude>
+						<exclude>com.google.appengine:appengine-api</exclude>
 						<exclude>com.google.appengine:appengine-tools</exclude>
 						<exclude>com.google.appengine:appengine-api</exclude>
 						<exclude>com.google.appengine:appengine-local-runtime-shared</exclude>
+						<exclude>javax.jdo:jdo2-api</exclude>
+						<exclude>org.datanucleus:datanucleus-core</exclude>
+						<exclude>org.datanucleus:datanucleus-jpa</exclude>
 					</excludes>
 					<classpathContainers>
-						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER
-                        </classpathContainer>
-						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER
-                        </classpathContainer>
-						<classpathContainer>com.google.appengine.eclipse.core.GAE_CONTAINER
-                        </classpathContainer>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+						<classpathContainer>com.google.appengine.eclipse.core.GAE_CONTAINER</classpathContainer>
 					</classpathContainers>
-					<projectnatures>
-						<java.lang.String>org.eclipse.jdt.core.javanature
-                        </java.lang.String>
-						<java.lang.String>com.google.gwt.eclipse.core.gwtNature
-                        </java.lang.String>
-						<java.lang.String>com.google.appengine.eclipse.core.enhancerbuilder
-                        </java.lang.String>
-						<java.lang.String>com.google.appengine.eclipse.core.projectValidator
-                        </java.lang.String>
-					</projectnatures>
-					<buildcommands>
-						<java.lang.String>org.eclipse.jdt.core.javabuilder
-                        </java.lang.String>
-						<java.lang.String>com.google.appengine.eclipse.core.gaeNature
-                        </java.lang.String>
-					</buildcommands>
+					<additionalProjectnatures>
+						<projectnature>com.google.gdt.eclipse.core.webAppNature</projectnature>
+						<projectnature>com.google.appengine.eclipse.core.gaeNature</projectnature>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+					</additionalProjectnatures>
+					<additionalBuildcommands>
+						<buildcommand>com.google.appengine.eclipse.core.enhancerbuilder</buildcommand>
+						<buildcommand>com.google.appengine.eclipse.core.projectValidator</buildcommand>
+						<buildcommand>com.google.gdt.eclipse.core.webAppProjectValidator</buildcommand>
+					</additionalBuildcommands>
 				</configuration>
 			</plugin>
+			<!-- Jetty server for development -->
+			<!--
+				<plugin> <groupId>org.mortbay.jetty</groupId>
+				<artifactId>maven-jetty-plugin</artifactId> <version>6.0.2</version>
+				<configuration>
+				<webAppSourceDirectory>${basedir}/war</webAppSourceDirectory>
+				<scanIntervalSeconds>10</scanIntervalSeconds> </configuration>
+				</plugin>
+			-->
+			<!-- Tomcat server for development -->
+			<!--
+				<plugin> <groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<version>1.0-alpha-1</version> <configuration>
+				<warSourceDirectory>${basedir}/war</warSourceDirectory>
+				</configuration> </plugin>
+			-->
+			<!--
+				<plugin> <artifactId>maven-antrun-plugin</artifactId> <executions>
+				<execution> <phase>deploy</phase> <configuration> <tasks> <echo
+				message="Will download Google App Engine for Java and run appcfg
+				tool to upload the application." /> <mkdir
+				dir="${java.io.tmpdir}/gaej" /> <get
+				src="http://googleappengine.googlecode.com/files/appengine-java-sdk-1.2.0.zip"
+				dest="${java.io.tmpdir}/gaej/sdk.zip" verbose="yes"
+				usetimestamp="true" /> <unzip src="${java.io.tmpdir}/gaej/sdk.zip"
+				dest="${java.io.tmpdir}/gaej" /> <java fork="false"
+				classname="com.google.appengine.tools.admin.AppCfg"> <sysproperty
+				key="appengine.sdk.root"
+				value="${java.io.tmpdir}/gaej/appengine-java-sdk-1.2.0" />
+				<classpath> <fileset dir="${java.io.tmpdir}/gaej"> <include
+				name="**/*.jar" /> </fileset> </classpath> <arg value="update" />
+				<arg value="${basedir}/target/${project.artifactId}" /> </java>
+				</tasks> </configuration> <goals> <goal>run</goal> </goals>
+				</execution> </executions> </plugin>
+			-->
 		</plugins>
 	</build>
 	<dependencies>
 		<dependency>
 			<artifactId>gwt-patterns</artifactId>
-			<groupId>us.gibb.dev</groupId>
-			<version>1.0-SNAPSHOT</version>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
 			<classifier>sources</classifier>
 			<scope>provided</scope>
 			<type>jar</type>
 		</dependency>
+        <dependency>
+            <artifactId>gwt-patterns</artifactId>
+            <groupId>${project.groupId}</groupId>
+            <version>${project.version}</version>
+        </dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -98,7 +165,7 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gin</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -114,10 +181,40 @@
 			http://lresende.blogspot.com/2009/10/google-appengine-sdk-and-maven.html
 		-->
 		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-core</artifactId>
+			<version>1.1.1</version>
+			<!--
+				<exclusions> <exclusion> <artifactId>transaction-api</artifactId>
+				<groupId>javax.transaction</groupId> </exclusion> </exclusions>
+			-->
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-jpa</artifactId>
+			<version>1.1.1</version>
+			<!-- <exclusions>
+				<exclusion>
+					<groupId>javax.persistence</groupId>
+					<artifactId>persistence-api</artifactId>
+				</exclusion>
+			</exclusions> -->
+		</dependency>
+		<!--
+			<dependency> <groupId>javax.jdo</groupId>
+			<artifactId>jdo2-api</artifactId> <version>2.3-SNAPSHOT</version>
+			</dependency>
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>1.0.0.final</version>
+		</dependency>
+        -->
+		<dependency>
 			<groupId>com.google.appengine</groupId>
 			<artifactId>appengine-api</artifactId>
-			<version>${appengine.version}</version>
-			<scope>provided</scope>
+            <version>${appengine.version}</version>
+            <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
