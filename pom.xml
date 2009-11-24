@@ -74,7 +74,7 @@
 	<repositories>
 		<repository>
 			<id>Codehaus Snapshots</id>
-			<url>http://snapshots.repository.codehaus.org/</url>
+			<url>http://snapshots.repository.codehaus.org</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -85,8 +85,16 @@
 		<repository>
 			<id>maven2-repository.dev.java.net</id>
 			<name>Java.net Repository for Maven</name>
-			<url>http://download.java.net/maven/2/</url>
+			<url>http://download.java.net/maven/2</url>
 		</repository>
+        <repository>
+            <id>gwt-ent-maven2</id>
+            <name>gwt-ent-maven2</name>
+            <url>http://gwt-enterprise-patterns.googlecode.com/svn/maven2/repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>

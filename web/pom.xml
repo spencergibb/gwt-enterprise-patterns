@@ -14,17 +14,6 @@
 	<packaging>war</packaging>
 	<name>gwt-web-demo</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
-
-	<repositories>
-		<repository>
-			<id>local-maven2</id>
-			<name>local-maven2</name>
-			<url>file://${project.basedir}/../src/main/maven2/repo</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<build>
 		<finalName>gwt-web-demo</finalName>
 		<plugins>
