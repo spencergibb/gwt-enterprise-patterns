@@ -39,7 +39,7 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
         super(null);
         History.addValueChangeHandler(new ValueChangeHandler<String>() {
             public void onValueChange(ValueChangeEvent<String> event) {
-                fire(LocationEvent.fromString(event.getValue()));
+                fire(Location.fromString(event.getValue()));
             }});
     }
     
@@ -70,7 +70,23 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
     }
     
     public void changeLocation(String location, String... params) {
-        History.newItem(new LocationEvent(location, params).toString(), false);
+        History.newItem(new Location(location, params).toString(), true);
+    }
+    
+    public Location currentLocation() {
+        String token = History.getToken();
+        if (token != null) {
+            return Location.fromString(token);
+        }
+        return null;
+    }
+    
+    public Location currentLocation(String requiredLocation) {
+        Location currentLocation = currentLocation();
+        if (currentLocation != null && currentLocation.getValue().equals(requiredLocation)) {
+            return currentLocation;
+        }
+        return null;
     }
 
     @Override

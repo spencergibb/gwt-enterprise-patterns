@@ -10,6 +10,8 @@ public interface EventBus {
     public boolean isHandled(Class<?> typeClass);
     
     public void changeLocation(String location, String... params);
+    public Location currentLocation();
+    public Location currentLocation(String requiredLocation);
     
     public void failure(String msg);
     public void failure(Throwable t);

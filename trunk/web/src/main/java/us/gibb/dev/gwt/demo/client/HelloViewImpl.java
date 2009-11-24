@@ -3,7 +3,7 @@ package us.gibb.dev.gwt.demo.client;
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
 import us.gibb.dev.gwt.event.FailureEvent;
-import us.gibb.dev.gwt.event.LocationEvent;
+import us.gibb.dev.gwt.event.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -34,7 +34,7 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
         name = new TextBox();
         button = new Button("Say Hello");
         HTML html = new HTML();
-        
+
         VerticalPanel verticalPanel = new VerticalPanel();
         verticalPanel.add(name);
         verticalPanel.add(button);
@@ -44,32 +44,36 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
         tabPanel = new TabPanel();
         tabPanel.add(verticalPanel, "Hello");
         tabPanel.add(goodbye.getView().getImpl(), "Goodbye");
+
+        tabPanel.selectTab(0);
+        
+        populate(eventBus.currentLocation(getLocation()));
         
         tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
             public void onSelection(SelectionEvent<Integer> event) {
-                selectedTab = event.getSelectedItem();
-                switch (event.getSelectedItem()) {
-                case 1:
-                    eventBus.changeLocation(goodbye.getView().getLocation());
-                    break;
-                default:
-                    eventBus.changeLocation(getLocation());
-                    break;
+                if (event.getSelectedItem() != selectedTab) {
+                    selectedTab = event.getSelectedItem();
+                    switch (event.getSelectedItem()) {
+                    case 1:
+                        eventBus.changeLocation(goodbye.getView().getLocation());
+                        break;
+                    default:
+                        eventBus.changeLocation(getLocation());
+                        break;
+                    }
                 }
             }});
         
-        eventBus.add(new LocationEvent.Handler(getLocation()) {
-            public void handle(LocationEvent event) {
+        eventBus.add(new Location.Handler(getLocation()) {
+            public void handle(Location location) {
                 if (selectedTab != 0) {
                     tabPanel.selectTab(0);
                 }
-                if (event.getParam(0) != null) {
-                    name.setValue(event.getParam(0));
-                }
+                populate(location);
             }});
         
-        eventBus.add(new LocationEvent.Handler(goodbye.getView().getLocation()) {
-            public void handle(LocationEvent event) {
+        eventBus.add(new Location.Handler(goodbye.getView().getLocation()) {
+            public void handle(Location location) {
                 if (selectedTab != 1) {
                     tabPanel.selectTab(1);
                 }
@@ -96,8 +100,13 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                 Window.alert(out.toString());
             }});
 
-        tabPanel.selectTab(0);
         initWidget(tabPanel);
+    }
+    
+    private void populate(Location location) {
+        if (location != null && location.getParam(0) != null) {
+            name.setValue(location.getParam(0));
+        }
     }
     
     public HasClickHandlers getButton() {
