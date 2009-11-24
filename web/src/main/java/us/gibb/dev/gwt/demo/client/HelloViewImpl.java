@@ -3,7 +3,7 @@ package us.gibb.dev.gwt.demo.client;
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
 import us.gibb.dev.gwt.event.FailureEvent;
-import us.gibb.dev.gwt.event.LocationChangedEvent;
+import us.gibb.dev.gwt.event.LocationEvent;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
@@ -58,8 +58,8 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                 }
             }});
         
-        eventBus.add(new LocationChangedEvent.Handler(getLocation()) {
-            public void handle(LocationChangedEvent event) {
+        eventBus.add(new LocationEvent.Handler(getLocation()) {
+            public void handle(LocationEvent event) {
                 if (selectedTab != 0) {
                     tabPanel.selectTab(0);
                 }
@@ -68,8 +68,8 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                 }
             }});
         
-        eventBus.add(new LocationChangedEvent.Handler(goodbye.getView().getLocation()) {
-            public void handle(LocationChangedEvent event) {
+        eventBus.add(new LocationEvent.Handler(goodbye.getView().getLocation()) {
+            public void handle(LocationEvent event) {
                 if (selectedTab != 1) {
                     tabPanel.selectTab(1);
                 }
