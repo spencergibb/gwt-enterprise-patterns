@@ -2,10 +2,10 @@ package us.gibb.dev.gwt.event;
 
 import java.util.Arrays;
 
-public class LocationEvent extends Event<String, LocationEvent.Handler> {
+public class Location extends Event<String, Location.Handler> {
     private static final String SEP = "/";
     
-    public static abstract class Handler extends EventHandler<LocationEvent> {
+    public static abstract class Handler extends EventHandler<Location> {
         private String location;
         
         public Handler(String location) {
@@ -13,13 +13,13 @@ public class LocationEvent extends Event<String, LocationEvent.Handler> {
         }
 
         public Object getTypeObject() {
-            return LocationEvent.getTypeObject(location);
+            return Location.getTypeObject(location);
         }
     }
 
     private String[] params;
 
-    public LocationEvent(String location, String... params) {
+    public Location(String location, String... params) {
         super(location);
         this.params = params;
     }
@@ -41,7 +41,7 @@ public class LocationEvent extends Event<String, LocationEvent.Handler> {
     }
 
     private static String getTypeObject(String location) {
-        return LocationEvent.class+SEP+location;
+        return Location.class+SEP+location;
     }
     
     @Override
@@ -56,7 +56,7 @@ public class LocationEvent extends Event<String, LocationEvent.Handler> {
         return out.toString();
     }
 
-    public static LocationEvent fromString(String locationString) {
+    public static Location fromString(String locationString) {
         if (locationString == null) {
             throw new RuntimeException("Missing location: "+locationString);
         }
@@ -72,7 +72,7 @@ public class LocationEvent extends Event<String, LocationEvent.Handler> {
         if (split.length > 1) {
             params = Arrays.asList(split).subList(1, split.length).toArray(new String[]{});
         }
-        return new LocationEvent(split[0], params);
+        return new Location(split[0], params);
     }
 
 }

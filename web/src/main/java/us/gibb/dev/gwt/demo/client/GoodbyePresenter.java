@@ -2,7 +2,7 @@ package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.event.HasLocation;
-import us.gibb.dev.gwt.event.LocationEvent;
+import us.gibb.dev.gwt.event.Location;
 import us.gibb.dev.gwt.presenter.AbstractPresenter;
 import us.gibb.dev.gwt.view.WidgetView;
 
@@ -19,9 +19,9 @@ public class GoodbyePresenter extends AbstractPresenter<GoodbyePresenter.View, C
     protected GoodbyePresenter(final CommandEventBus eventBus, final View view) {
         super(eventBus, view);
 
-        eventBus.add(new LocationEvent.Handler(view.getLocation()) {
-            public void handle(LocationEvent event) {
-                view.getName().setValue(event.getParam(0));
+        eventBus.add(new Location.Handler(view.getLocation()) {
+            public void handle(Location location) {
+                view.getName().setValue(location.getParam(0));
             }});
     }
 
