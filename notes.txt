@@ -1,3 +1,6 @@
+http://winkjava.110mb.com/gaehelloworld/helloworld.zip
+http://twelves.blogspot.com/2009/04/google-appengine-maven-pom.html
+
 http://code.google.com/p/protostuff
 http://code.google.com/p/gwt-rpc-plus/
 http://code.google.com/p/protobuf-java-format/

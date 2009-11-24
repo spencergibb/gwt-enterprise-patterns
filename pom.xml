@@ -37,8 +37,8 @@
 	</scm>
 
 	<properties>
-        <gwt.version>2.0.0-ms2</gwt.version>
-        <appengine.version>1.2.6</appengine.version>
+		<gwt.version>2.0.0-ms2</gwt.version>
+		<appengine.version>1.2.6</appengine.version>
 	</properties>
 	<modules>
 		<module>patterns</module>
@@ -87,19 +87,24 @@
 			<name>Java.net Repository for Maven</name>
 			<url>http://download.java.net/maven/2</url>
 		</repository>
-        <repository>
-            <id>gwt-ent-maven2</id>
-            <name>gwt-ent-maven2</name>
-            <url>http://gwt-enterprise-patterns.googlecode.com/svn/maven2/repo</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
+		<repository>
+			<id>www.mvnsearch.org</id>
+			<name>www.mvnsearch.org</name>
+			<url>http://www.mvnsearch.org/maven2</url>
+		</repository>
+		<repository>
+			<id>gwt-ent-maven2</id>
+            <name>GWT Enterprise Patterns SVN Repository</name>
+			<url>http://gwt-enterprise-patterns.googlecode.com/svn/maven2/repo</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
 	</repositories>
 	<pluginRepositories>
 		<pluginRepository>
 			<id>Codehaus Snapshots</id>
-			<url>http://snapshots.repository.codehaus.org/</url>
+			<url>http://snapshots.repository.codehaus.org</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
@@ -108,16 +113,16 @@
 			</releases>
 		</pluginRepository>
 	</pluginRepositories>
-    <distributionManagement>
-        <repository>
-            <id>google-code</id>
-            <name>GWT Enterprise Patterns SVN Repository</name>
-            <url>svn:https://gwt-enterprise-patterns.googlecode.com/svn/maven2</url>
-        </repository>
-        <snapshotRepository>
-            <id>google-code</id>
-            <name>GWT Enterprise Patterns SVN Repository</name>
-            <url>svn:https://gwt-enterprise-patterns.googlecode.com/svn/maven2</url>
-        </snapshotRepository>
-    </distributionManagement>
+	<distributionManagement>
+		<repository>
+            <id>gwt-ent-maven2</id>
+			<name>GWT Enterprise Patterns SVN Repository</name>
+			<url>svn:https://gwt-enterprise-patterns.googlecode.com/svn/maven2/repo</url>
+		</repository>
+		<snapshotRepository>
+            <id>gwt-ent-maven2</id>
+			<name>GWT Enterprise Patterns SVN Repository</name>
+			<url>svn:https://gwt-enterprise-patterns.googlecode.com/svn/maven2/repo</url>
+		</snapshotRepository>
+	</distributionManagement>
 </project>
