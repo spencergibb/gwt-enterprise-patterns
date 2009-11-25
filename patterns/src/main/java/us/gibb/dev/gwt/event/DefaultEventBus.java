@@ -75,7 +75,7 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
     
     public Location currentLocation() {
         String token = History.getToken();
-        if (token != null) {
+        if (token != null && !token.trim().isEmpty()) {
             return Location.fromString(token);
         }
         return null;
