@@ -1,7 +1,6 @@
 package us.gibb.dev.gwt.command.inject;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
-import us.gibb.dev.gwt.command.DefaultCommandEventBus;
 
 import com.google.gwt.inject.client.AbstractGinModule;
 import com.google.inject.Singleton;
@@ -19,7 +18,7 @@ public class ClientDispatchModule extends AbstractGinModule {
     }
 
     protected void bindDefaultCommandEventBus() {
-        bind(CommandEventBus.class).to(DefaultCommandEventBus.class).in(Singleton.class);
+        bind(CommandEventBus.class).toProvider(DefaultCommandEventBusProvider.class).in(Singleton.class);
     }
 
 }

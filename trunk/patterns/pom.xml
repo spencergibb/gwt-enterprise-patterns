@@ -58,6 +58,12 @@
 			<version>2.0</version>
 			<scope>provided</scope>
 		</dependency>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-sdk</artifactId>
+            <version>${appengine.version}</version>
+            <scope>provided</scope>
+        </dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>

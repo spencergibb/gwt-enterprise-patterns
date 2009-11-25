@@ -78,10 +78,10 @@
 					<wtpversion>1.5</wtpversion>
 					<wtpapplicationxml>true</wtpapplicationxml>
 					<excludes><!-- GAE_CONTAINER already have these jars -->
-						<exclude>com.google.appengine:datanucleus-appengine</exclude>
-						<exclude>com.google.appengine:appengine-api</exclude>
+						<exclude>com.google.appengine.orm:datanucleus-appengine</exclude>
+						<exclude>com.google.appengine:appengine-api-1.0-agent</exclude>
 						<exclude>com.google.appengine:appengine-tools</exclude>
-						<exclude>com.google.appengine:appengine-api</exclude>
+						<exclude>com.google.appengine:appengine-api-1.0-sdk</exclude>
 						<exclude>com.google.appengine:appengine-local-runtime-shared</exclude>
 						<exclude>javax.jdo:jdo2-api</exclude>
 						<exclude>org.datanucleus:datanucleus-core</exclude>
@@ -174,6 +174,10 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gin</artifactId>
 			<version>1.0-SNAPSHOT</version>
+			<!--
+				<scope>provided</scope> commented out because datanucleus loads the
+				ui classes and without this it errors
+			-->
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -204,41 +208,36 @@
 			<artifactId>appengine-api-1.0-labs</artifactId>
 			<version>${appengine.version}</version>
 		</dependency>
-        <dependency>
-            <groupId>com.google.appengine</groupId>
-            <artifactId>appengine-api-1.0-agent</artifactId>
-            <version>${appengine.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.google.appengine.orm</groupId>
-            <artifactId>datanucleus-appengine</artifactId>
-            <version>${datanucleus.appengine.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>1.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-jpa</artifactId>
-            <version>1.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>org.datanucleus</groupId>
-            <artifactId>datanucleus-core</artifactId>
-            <version>1.1.5</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
-        </dependency>
+		<dependency>
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-agent</artifactId>
+			<version>${appengine.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.appengine.orm</groupId>
+			<artifactId>datanucleus-appengine</artifactId>
+			<version>${datanucleus.appengine.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-core</artifactId>
+			<version>1.1.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.datanucleus</groupId>
+			<artifactId>datanucleus-jpa</artifactId>
+			<version>1.1.5</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<!-- <dependency>
+			<groupId>net.sf.gilead</groupId>
+			<artifactId>adapter4appengine</artifactId>
+			<version>1.0M2</version>
+		</dependency> -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>

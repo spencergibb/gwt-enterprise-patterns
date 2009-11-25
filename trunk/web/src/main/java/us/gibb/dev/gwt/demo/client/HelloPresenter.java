@@ -1,7 +1,7 @@
 package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
-import us.gibb.dev.gwt.event.HasLocation;
+import us.gibb.dev.gwt.location.HasLocation;
 import us.gibb.dev.gwt.presenter.AbstractPresenter;
 import us.gibb.dev.gwt.view.WidgetView;
 

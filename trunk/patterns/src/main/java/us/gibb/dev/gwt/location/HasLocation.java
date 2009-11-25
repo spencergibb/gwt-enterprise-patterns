@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.event;
+package us.gibb.dev.gwt.location;
 
 public interface HasLocation {
     String getLocation();

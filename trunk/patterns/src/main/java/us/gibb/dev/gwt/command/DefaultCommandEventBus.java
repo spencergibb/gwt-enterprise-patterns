@@ -4,11 +4,16 @@ import java.util.Set;
 
 import us.gibb.dev.gwt.event.DefaultEventBus;
 import us.gibb.dev.gwt.event.Event;
+import us.gibb.dev.gwt.location.LocationManager;
 
 import com.google.gwt.event.shared.HandlerRegistration;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class DefaultCommandEventBus extends DefaultEventBus implements CommandEventBus {
+
+    public DefaultCommandEventBus(LocationManager locationManager) {
+        super(locationManager);
+    }
 
     public <C extends Command<?>> HandlerRegistration add(CommandEvent.Handler<C> handler) {
         return super.add(handler);
