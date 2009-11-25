@@ -1,0 +1,15 @@
+<project>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>net.sf.gilead</groupId>
+  <artifactId>adapter4appengine</artifactId>
+  <version>1.0M2</version>
+  <packaging>jar</packaging>
+
+  <name>Gilead Adapter for Google App Engine</name>
+  <url>http://noon.gilead.free.fr/gilead</url>
+  <description></description>
+  <scm>
+    <url>https://gilead.svn.sourceforge.net/svnroot/gilead/gilead/trunk</url>
+  </scm>
+
+</project>
