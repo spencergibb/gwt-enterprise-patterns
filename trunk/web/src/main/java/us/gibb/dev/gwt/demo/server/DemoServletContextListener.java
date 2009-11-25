@@ -29,6 +29,8 @@ public class DemoServletContextListener extends GuiceServletContextListener {
                 bind(CommandHandlerRegistry.class).toProvider(DefaultCommandHandlerRegistryProvider.class).in(Singleton.class);
 
                 bind(Dispatch.class).toProvider(DefaultDispatchProvider.class).in(Singleton.class);
+                
+                bindEntityManagerFactoryProvider("transactions-optional");
             }
         });
     }

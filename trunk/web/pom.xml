@@ -27,11 +27,11 @@
 			<plugin>
 				<groupId>org.datanucleus</groupId>
 				<artifactId>maven-datanucleus-plugin</artifactId>
-				<version>1.1.4</version>
+				<version>1.1.4</version><!-- 2.0.0-m2  -->
 				<configuration>
 					<verbose>true</verbose>
 					<api>JPA</api>
-					<mappingIncludes>**/*.jdo, **/model/**.class</mappingIncludes>
+					<mappingIncludes>**/*.jdo,**/model/**.class</mappingIncludes>
 					<enhancerName>ASM</enhancerName>
 				</configuration>
 				<executions>
@@ -42,6 +42,13 @@
 						</goals>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.datanucleus</groupId>
+						<artifactId>datanucleus-core</artifactId>
+						<version>1.1.5</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
@@ -97,23 +104,25 @@
 					</additionalBuildcommands>
 				</configuration>
 			</plugin>
-			<!-- Jetty server for development -->
-			<!--
-				<plugin> <groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId> <version>6.0.2</version>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
 				<configuration>
-				<webAppSourceDirectory>${basedir}/war</webAppSourceDirectory>
-				<scanIntervalSeconds>10</scanIntervalSeconds> </configuration>
-				</plugin>
-			-->
-			<!-- Tomcat server for development -->
-			<!--
-				<plugin> <groupId>org.codehaus.mojo</groupId>
-				<artifactId>tomcat-maven-plugin</artifactId>
-				<version>1.0-alpha-1</version> <configuration>
-				<warSourceDirectory>${basedir}/war</warSourceDirectory>
-				</configuration> </plugin>
-			-->
+					<filesets>
+						<fileset>
+							<directory>war</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>target</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>tomcat</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
+				</configuration>
+			</plugin>
 			<!--
 				<plugin> <artifactId>maven-antrun-plugin</artifactId> <executions>
 				<execution> <phase>deploy</phase> <configuration> <tasks> <echo
@@ -144,11 +153,11 @@
 			<scope>provided</scope>
 			<type>jar</type>
 		</dependency>
-        <dependency>
-            <artifactId>gwt-patterns</artifactId>
-            <groupId>${project.groupId}</groupId>
-            <version>${project.version}</version>
-        </dependency>
+		<dependency>
+			<artifactId>gwt-patterns</artifactId>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
@@ -165,7 +174,6 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gin</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
@@ -177,44 +185,59 @@
 			<artifactId>guice-servlet</artifactId>
 			<version>2.0</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
+			<scope>provided</scope>
+		</dependency>
 		<!--
 			http://lresende.blogspot.com/2009/10/google-appengine-sdk-and-maven.html
 		-->
 		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-core</artifactId>
-			<version>1.1.1</version>
-			<!--
-				<exclusions> <exclusion> <artifactId>transaction-api</artifactId>
-				<groupId>javax.transaction</groupId> </exclusion> </exclusions>
-			-->
+			<groupId>com.google.appengine</groupId>
+			<artifactId>appengine-api-1.0-sdk</artifactId>
+			<version>${appengine.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>org.datanucleus</groupId>
-			<artifactId>datanucleus-jpa</artifactId>
-			<version>1.1.1</version>
-			<!-- <exclusions>
-				<exclusion>
-					<groupId>javax.persistence</groupId>
-					<artifactId>persistence-api</artifactId>
-				</exclusion>
-			</exclusions> -->
-		</dependency>
-		<!--
-			<dependency> <groupId>javax.jdo</groupId>
-			<artifactId>jdo2-api</artifactId> <version>2.3-SNAPSHOT</version>
-			</dependency>
 		<dependency>
 			<groupId>com.google.appengine</groupId>
-			<artifactId>datanucleus-appengine</artifactId>
-			<version>1.0.0.final</version>
+			<artifactId>appengine-api-1.0-labs</artifactId>
+			<version>${appengine.version}</version>
 		</dependency>
-        -->
-		<dependency>
-			<groupId>com.google.appengine</groupId>
-			<artifactId>appengine-api</artifactId>
+        <dependency>
+            <groupId>com.google.appengine</groupId>
+            <artifactId>appengine-api-1.0-agent</artifactId>
             <version>${appengine.version}</version>
-            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.google.appengine.orm</groupId>
+            <artifactId>datanucleus-appengine</artifactId>
+            <version>${datanucleus.appengine.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-jpa</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.datanucleus</groupId>
+            <artifactId>datanucleus-core</artifactId>
+            <version>1.1.5</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.persistence</groupId>
+            <artifactId>persistence-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+		<dependency>
+			<groupId>javax.persistence</groupId>
+			<artifactId>persistence-api</artifactId>
+			<version>1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

@@ -38,7 +38,8 @@
 
 	<properties>
 		<gwt.version>2.0.0-ms2</gwt.version>
-		<appengine.version>1.2.6</appengine.version>
+        <appengine.version>1.2.6</appengine.version>
+        <datanucleus.appengine.version>1.0.3</datanucleus.appengine.version>
 	</properties>
 	<modules>
 		<module>patterns</module>

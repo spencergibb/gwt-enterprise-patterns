@@ -6,11 +6,14 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.EntityManagerFactory;
+
 import us.gibb.dev.gwt.command.Dispatch;
 import us.gibb.dev.gwt.server.CommandHandler;
 import us.gibb.dev.gwt.server.CommandHandlerRegistry;
 
 import com.google.inject.AbstractModule;
+import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.binder.AnnotatedBindingBuilder;
 import com.google.inject.name.Names;
@@ -52,6 +55,11 @@ public class DispatchModule extends AbstractModule {
     
     protected void addCommandHandler(Class<CommandHandler<?, ?>> clazz) {
         classes.add(clazz);
+    }
+    
+    protected void bindEntityManagerFactoryProvider(String persistenceUnitName) {
+        bindConstant().annotatedWith(Names.named("persistence.unit.name")).to(persistenceUnitName);
+        bind(EntityManagerFactory.class).toProvider(EntityManagerFactoryProvider.class).in(Singleton.class);
     }
     
     @Override
