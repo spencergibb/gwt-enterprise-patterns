@@ -53,7 +53,7 @@ public class DispatchModule extends AbstractModule {
         packages.add(pkg);
     }
     
-    protected void addCommandHandler(Class<CommandHandler<?, ?>> clazz) {
+    protected <CH extends CommandHandler<?, ?>> void addCommandHandler(Class<CH> clazz) {
         classes.add(clazz);
     }
     

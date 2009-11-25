@@ -1,5 +1,7 @@
 package us.gibb.dev.gwt.event;
 
+import us.gibb.dev.gwt.location.Location;
+
 import com.google.gwt.event.shared.HandlerRegistration;
 
 

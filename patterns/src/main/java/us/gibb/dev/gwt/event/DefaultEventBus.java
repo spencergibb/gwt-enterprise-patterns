@@ -3,16 +3,19 @@ package us.gibb.dev.gwt.event;
 import java.util.HashMap;
 import java.util.Map;
 
+import us.gibb.dev.gwt.location.Location;
+import us.gibb.dev.gwt.location.LocationManager;
+
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HandlerManager;
 import com.google.gwt.event.shared.HandlerRegistration;
-import com.google.gwt.user.client.History;
 
 public class DefaultEventBus extends HandlerManager implements EventBus {
     
     Map<Object, EventType<?>> typeRegistry = new HashMap<Object, EventType<?>>();
+    private LocationManager locationManager;
 
     private class EventType<H extends com.google.gwt.event.shared.EventHandler> extends GwtEvent.Type<H> {
     }
@@ -35,9 +38,10 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
         }
     }
     
-    public DefaultEventBus() {
+    public DefaultEventBus(LocationManager locationManager) {
         super(null);
-        History.addValueChangeHandler(new ValueChangeHandler<String>() {
+        this.locationManager = locationManager;
+        locationManager.addValueChangeHandler(new ValueChangeHandler<String>() {
             public void onValueChange(ValueChangeEvent<String> event) {
                 fire(Location.fromString(event.getValue()));
             }});
@@ -70,23 +74,15 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
     }
     
     public void changeLocation(String location, String... params) {
-        History.newItem(new Location(location, params).toString(), true);
+        locationManager.changeLocation(location, params);
     }
     
     public Location currentLocation() {
-        String token = History.getToken();
-        if (token != null && !token.trim().isEmpty()) {
-            return Location.fromString(token);
-        }
-        return null;
+        return locationManager.currentLocation();
     }
     
     public Location currentLocation(String requiredLocation) {
-        Location currentLocation = currentLocation();
-        if (currentLocation != null && currentLocation.getValue().equals(requiredLocation)) {
-            return currentLocation;
-        }
-        return null;
+        return locationManager.currentLocation(requiredLocation);
     }
 
     @Override

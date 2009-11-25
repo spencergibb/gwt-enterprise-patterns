@@ -93,6 +93,11 @@
 			<name>www.mvnsearch.org</name>
 			<url>http://www.mvnsearch.org/maven2</url>
 		</repository>
+        <repository>
+            <id>giliead-release</id>
+            <name>Gilead Release Repository</name>
+            <url>https://gilead.svn.sourceforge.net/svnroot/gilead/gilead/maven-repo</url>
+        </repository>
 		<repository>
 			<id>gwt-ent-maven2</id>
             <name>GWT Enterprise Patterns SVN Repository</name>

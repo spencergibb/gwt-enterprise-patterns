@@ -6,6 +6,8 @@
 
       <source path="command" />
       <source path="event" />
+      <source path="location" />
+      <source path="login" />
       <source path="presenter" />
       <source path="view" />
 </module>

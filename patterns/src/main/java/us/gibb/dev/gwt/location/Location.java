@@ -1,6 +1,9 @@
-package us.gibb.dev.gwt.event;
+package us.gibb.dev.gwt.location;
 
 import java.util.Arrays;
+
+import us.gibb.dev.gwt.event.Event;
+import us.gibb.dev.gwt.event.EventHandler;
 
 public class Location extends Event<String, Location.Handler> {
     private static final String SEP = "/";

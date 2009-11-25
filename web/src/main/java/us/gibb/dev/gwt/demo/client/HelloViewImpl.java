@@ -3,7 +3,7 @@ package us.gibb.dev.gwt.demo.client;
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
 import us.gibb.dev.gwt.event.FailureEvent;
-import us.gibb.dev.gwt.event.Location;
+import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
