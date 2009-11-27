@@ -1,7 +1,7 @@
 package us.gibb.dev.gwt.demo.server;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 
 import us.gibb.dev.gwt.command.CommandException;
 import us.gibb.dev.gwt.demo.client.HelloCommand;
@@ -13,24 +13,24 @@ import com.google.inject.Inject;
 
 public class HelloCommandHandler extends CommandHandler<HelloCommand, HelloResult> {
     
-    private EntityManagerFactory emf;
+    private PersistenceManagerFactory pmf;
 
     @Inject
-    public HelloCommandHandler(EntityManagerFactory emf) {
-        this.emf = emf;
+    public HelloCommandHandler(PersistenceManagerFactory pmf) {
+        this.pmf = pmf;
     }
 
     @Override
     public HelloResult execute(HelloCommand command) throws CommandException {
-        EntityManager em = emf.createEntityManager();
+        PersistenceManager pm = pmf.getPersistenceManager();
         try {
             Hello hello = new Hello();
             hello.setName(command.getName());
-            em.persist(hello);
+            pm.makePersistent(hello);
             return new HelloResult("Hello "+command.getName());
         } finally {
-            em.close();
+            pm.close();
         }
     }
-
+    
 }

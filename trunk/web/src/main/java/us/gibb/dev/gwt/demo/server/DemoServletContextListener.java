@@ -28,7 +28,8 @@ public class DemoServletContextListener extends GuiceServletContextListener {
 
                 bind(Dispatch.class).toProvider(DefaultDispatchProvider.class).in(Singleton.class);
                 
-                bindEntityManagerFactoryProvider("transactions-optional");
+                //bindEntityManagerFactoryProvider("transactions-optional");
+                bindPersistenceManagerFactoryProvider("transactions-optional");
             }});
     }
 }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.jdo.PersistenceManagerFactory;
 import javax.persistence.EntityManagerFactory;
 
 import us.gibb.dev.gwt.command.Dispatch;
@@ -58,8 +59,17 @@ public class DispatchModule extends AbstractModule {
     }
     
     protected void bindEntityManagerFactoryProvider(String persistenceUnitName) {
-        bindConstant().annotatedWith(Names.named("persistence.unit.name")).to(persistenceUnitName);
+        bindPersistenceUnitName(persistenceUnitName);
         bind(EntityManagerFactory.class).toProvider(EntityManagerFactoryProvider.class).in(Singleton.class);
+    }
+    
+    protected void bindPersistenceManagerFactoryProvider(String persistenceUnitName) {
+        bindPersistenceUnitName(persistenceUnitName);
+        bind(PersistenceManagerFactory.class).toProvider(PersistenceManagerFactoryProvider.class).in(Singleton.class);
+    }
+
+    private void bindPersistenceUnitName(String persistenceUnitName) {
+        bindConstant().annotatedWith(Names.named("persistence.unit.name")).to(persistenceUnitName);
     }
     
     @Override
