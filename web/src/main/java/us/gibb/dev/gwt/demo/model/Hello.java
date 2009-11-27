@@ -1,5 +1,6 @@
 package us.gibb.dev.gwt.demo.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.jdo.annotations.IdGeneratorStrategy;
@@ -7,11 +8,11 @@ import javax.jdo.annotations.IdentityType;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
-import javax.jdo.listener.StoreCallback;
 
-@PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Hello implements StoreCallback {
-    
+@PersistenceCapable(identityType = IdentityType.APPLICATION, detachable="true")
+public class Hello implements Serializable {
+    private static final long serialVersionUID = -1508599717060362857L;
+
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Long id;
@@ -49,9 +50,7 @@ public class Hello implements StoreCallback {
     }
     
     @Override
-    public void jdoPreStore() {
-        if (id == null) {
-            setCreatedDate(new Date());
-        }
+    public String toString() {
+        return "Hello "+name+" on "+createdDate;
     }
 }
