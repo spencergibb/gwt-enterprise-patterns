@@ -2,21 +2,25 @@ package us.gibb.dev.gwt.demo.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.jdo.annotations.IdGeneratorStrategy;
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PersistenceCapable;
+import javax.jdo.annotations.Persistent;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.listener.StoreCallback;
 import javax.persistence.PrePersist;
 
-@Entity
-public class Hello {
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
+public class Hello implements StoreCallback {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @PrimaryKey
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private Long id;
     
+    @Persistent
     private String name;
-    
+
+    @Persistent
     private Date createdDate;
     
     public Hello() {}
@@ -45,8 +49,10 @@ public class Hello {
         this.createdDate = createdDate;
     }
     
-    @PrePersist
-    protected void prePersist() {
-        setCreatedDate(new Date());
+    @Override
+    public void jdoPreStore() {
+        if (id == null) {
+            setCreatedDate(new Date());
+        }
     }
 }
