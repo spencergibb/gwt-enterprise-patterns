@@ -8,7 +8,6 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 import javax.jdo.listener.StoreCallback;
-import javax.persistence.PrePersist;
 
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class Hello implements StoreCallback {
