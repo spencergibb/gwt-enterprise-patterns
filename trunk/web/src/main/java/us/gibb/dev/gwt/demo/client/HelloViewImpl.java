@@ -81,7 +81,7 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
         
         eventBus.add(new ResultEvent.Handler<HelloResult>(HelloResult.class){
             public void handle(ResultEvent<HelloResult> event) {
-                label.setText(event.getResult().getHello());
+                label.setText(event.getResult().getModel().toString());
             }});
         
         eventBus.add(new FailureEvent.Handler() {

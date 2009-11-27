@@ -8,6 +8,9 @@
       
       <inherits name="us.gibb.dev.gwt.Patterns"/>
 
+      <!-- Adapter for Google AppEngine-->
+      <inherits name='net.sf.gilead.adapter4appengine.Adapter4AppEngine'/>
+ 
       <!--  inherit css based theme -->
       <inherits name='com.google.gwt.user.theme.standard.Standard'/>
       
@@ -16,6 +19,9 @@
 
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />
+      
+      <source path="client" />
+      <source path="model" />
        
       <!-- <servlet path='/us.gibb.dev.gwt.demo.Application/service.gwtrpc' class='org.springbyexample.web.gwt.server.ServiceImpl'/> -->
 

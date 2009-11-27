@@ -1,5 +1,7 @@
 package us.gibb.dev.gwt.demo.server;
 
+import java.util.Date;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 
@@ -23,11 +25,13 @@ public class HelloCommandHandler extends CommandHandler<HelloCommand, HelloResul
     @Override
     public HelloResult execute(HelloCommand command) throws CommandException {
         PersistenceManager pm = pmf.getPersistenceManager();
+        pm.setDetachAllOnCommit(true);
         try {
             Hello hello = new Hello();
             hello.setName(command.getName());
+            hello.setCreatedDate(new Date());
             pm.makePersistent(hello);
-            return new HelloResult("Hello "+command.getName());
+            return new HelloResult("Hello "+command.getName(), hello);
         } finally {
             pm.close();
         }

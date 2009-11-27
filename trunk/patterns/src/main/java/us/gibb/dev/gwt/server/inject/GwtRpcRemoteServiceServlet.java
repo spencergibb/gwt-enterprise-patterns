@@ -11,7 +11,7 @@ import com.google.inject.Injector;
 import com.google.inject.Singleton;
 
 @Singleton
-public class GuiceRemoteServiceServlet extends RemoteServiceServlet {
+public class GwtRpcRemoteServiceServlet extends RemoteServiceServlet {
     private static final long serialVersionUID = 68052617558196206L;
 
     @Inject

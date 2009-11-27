@@ -234,11 +234,11 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
-		<!-- <dependency>
-			<groupId>net.sf.gilead</groupId>
-			<artifactId>adapter4appengine</artifactId>
-			<version>1.0M2</version>
-		</dependency> -->
+        <dependency>
+            <groupId>net.sf.gilead</groupId>
+            <artifactId>adapter4appengine</artifactId>
+            <version>1.0M2</version>
+        </dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
