@@ -1,7 +1,6 @@
 package us.gibb.dev.gwt.demo.server;
 
 import us.gibb.dev.gwt.command.Dispatch;
-import us.gibb.dev.gwt.server.AppengineLoginHandler;
 import us.gibb.dev.gwt.server.CommandHandlerRegistry;
 import us.gibb.dev.gwt.server.inject.DefaultCommandHandlerRegistryProvider;
 import us.gibb.dev.gwt.server.inject.DefaultDispatchProvider;
@@ -24,7 +23,6 @@ public class DemoServletContextListener extends GuiceServletContextListener {
                         serve("/us.gibb.dev.gwt.demo.Application/gwt.rpc").with(GuiceRemoteServiceServlet.class);
                     }});
                 scan(HelloCommandHandler.class.getPackage());
-                addCommandHandler(AppengineLoginHandler.class);
                 
                 bind(CommandHandlerRegistry.class).toProvider(DefaultCommandHandlerRegistryProvider.class).in(Singleton.class);
 
