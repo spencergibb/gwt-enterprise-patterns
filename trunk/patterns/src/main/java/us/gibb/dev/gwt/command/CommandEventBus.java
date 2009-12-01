@@ -10,6 +10,6 @@ public interface CommandEventBus extends EventBus {
     public <C extends Command<?>> void fire(C command);
 
     public <R extends Result> HandlerRegistration add(ResultEvent.Handler<R> handler);
-    public <R extends Result> void fire(R result);
+    public <C extends Command<R>, R extends Result> void fire(C command, R result);
     
 }
