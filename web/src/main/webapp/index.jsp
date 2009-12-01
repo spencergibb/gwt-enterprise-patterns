@@ -20,7 +20,7 @@
     <!-- be added before this line.                -->
     <!--                                           -->
     <script type="text/javascript" language="javascript" src="us.gibb.dev.gwt.demo.Application/us.gibb.dev.gwt.demo.Application.nocache.js"></script>
-    <link type="text/css" rel="stylesheet" href="Application.css">
+    <link type="text/css" rel="stylesheet" href="us.gibb.dev.gwt.demo.Application/Application.css">
   </head>
 
   <!--                                           -->

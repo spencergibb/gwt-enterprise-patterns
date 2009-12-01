@@ -1,7 +1,12 @@
-package us.gibb.dev.gwt.demo.client;
+package us.gibb.dev.gwt.demo.client.inject;
 
 import us.gibb.dev.gwt.command.inject.ClientDispatchModule;
 import us.gibb.dev.gwt.command.inject.CommandClasses;
+import us.gibb.dev.gwt.demo.client.GoodbyePresenter;
+import us.gibb.dev.gwt.demo.client.GoodbyeViewImpl;
+import us.gibb.dev.gwt.demo.client.HelloPresenter;
+import us.gibb.dev.gwt.demo.client.HelloViewImpl;
+import us.gibb.dev.gwt.demo.client.command.DemoCommandClasses;
 
 import com.google.inject.Singleton;
 import com.google.inject.name.Names;

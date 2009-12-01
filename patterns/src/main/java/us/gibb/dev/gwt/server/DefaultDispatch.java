@@ -21,7 +21,14 @@ public class DefaultDispatch implements Dispatch {
         if (handler == null) {
             throw new CommandException("Unable to find CommandHandler for command class: "+command.getClass());
         }
-        return (R) handler.exec(command);
+        try {
+            return (R) handler.exec(command);
+        } catch (CommandException e) {
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace(); //TODO move to log
+            throw new CommandException(e);
+        }
     }
 
 }

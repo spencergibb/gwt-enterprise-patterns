@@ -1,5 +1,7 @@
 package us.gibb.dev.gwt.server.inject;
 
+import static com.google.inject.matcher.Matchers.annotatedWith;
+import static com.google.inject.matcher.Matchers.not;
 import static com.google.inject.matcher.Matchers.subclassesOf;
 
 import java.util.ArrayList;
@@ -16,7 +18,6 @@ import us.gibb.dev.gwt.server.CommandHandlerRegistry;
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
-import com.google.inject.binder.AnnotatedBindingBuilder;
 import com.google.inject.name.Names;
 
 public class DispatchModule extends AbstractModule {
@@ -34,7 +35,7 @@ public class DispatchModule extends AbstractModule {
         configureDispatch();
 
         for (Package pkg : packages) {
-          classes.addAll(Classes.matching(subclassesOf(CommandHandler.class)).in(pkg));
+          classes.addAll(Classes.matching(subclassesOf(CommandHandler.class).and(not(annotatedWith(DispatchIgnore.class)))).in(pkg));
         }
         classes.remove(CommandHandler.class);
         
@@ -42,7 +43,7 @@ public class DispatchModule extends AbstractModule {
             .annotatedWith(Names.named("command.handler.classes"))
             .toInstance(classes);
 
-        System.out.println(classes);
+        System.out.println(classes); //TODO move to log
     }
     
     protected void configureDispatch() {
@@ -72,9 +73,4 @@ public class DispatchModule extends AbstractModule {
         bindConstant().annotatedWith(Names.named("persistence.unit.name")).to(persistenceUnitName);
     }
     
-    @Override
-    protected <T> AnnotatedBindingBuilder<T> bind(Class<T> clazz) {
-        return super.bind(clazz);
-    }
-
 }
