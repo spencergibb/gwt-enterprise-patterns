@@ -1,18 +1,27 @@
 package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
+import us.gibb.dev.gwt.command.ResultEvent;
+import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
+import us.gibb.dev.gwt.demo.client.command.GetHelloResult;
+import us.gibb.dev.gwt.demo.model.Hello;
 import us.gibb.dev.gwt.location.HasLocation;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.presenter.AbstractPresenter;
 import us.gibb.dev.gwt.view.WidgetView;
 
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.user.client.ui.HasText;
 import com.google.inject.Inject;
 
 public class GoodbyePresenter extends AbstractPresenter<GoodbyePresenter.View, CommandEventBus> {
 
     public interface View extends WidgetView, HasLocation {
-        HasValue<String> getName();
+        HasText getName();
+        HasClickHandlers getButton();
+        HasText getResult();
     }
     
     @Inject
@@ -21,8 +30,20 @@ public class GoodbyePresenter extends AbstractPresenter<GoodbyePresenter.View, C
 
         eventBus.add(new Location.Handler(view.getLocation()) {
             public void handle(Location location) {
-                view.getName().setValue(location.getParam(0));
+                view.getName().setText(location.getParam(0));
             }});
+        
+        eventBus.add(new ResultEvent.Handler<GetHelloResult>(GetHelloResult.class) {
+            public void handle(ResultEvent<GetHelloResult> event) {
+                Hello hello = event.getResult().getHello();
+                view.getResult().setText("Said hello to "+hello.getName()+" on "+hello.getCreatedDate());
+            }});
+        
+        view.getButton().addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                eventBus.fire(new GetHelloCommand(view.getName().getText()));
+            }});
+        
     }
 
 }

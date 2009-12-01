@@ -4,15 +4,15 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>gwt</artifactId>
+		<artifactId>gwt-ent</artifactId>
 		<groupId>us.gibb.dev</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>us.gibb.dev</groupId>
-	<artifactId>gwt-web-demo</artifactId>
+	<artifactId>gwt-ent-demo</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>gwt-web-demo</name>
+	<name>gwt-ent-demo</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -147,7 +147,7 @@
 	</build>
 	<dependencies>
 		<dependency>
-			<artifactId>gwt-patterns</artifactId>
+			<artifactId>gwt-ent-patterns</artifactId>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
 			<classifier>sources</classifier>
@@ -155,7 +155,7 @@
 			<type>jar</type>
 		</dependency>
 		<dependency>
-			<artifactId>gwt-patterns</artifactId>
+			<artifactId>gwt-ent-patterns</artifactId>
 			<groupId>${project.groupId}</groupId>
 			<version>${project.version}</version>
 		</dependency>

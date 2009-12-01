@@ -1,18 +1,16 @@
 package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
-import us.gibb.dev.gwt.command.ResultEvent;
-import us.gibb.dev.gwt.event.FailureEvent;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasValue;
+import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -25,29 +23,31 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
     private TextBox name;
     private TabPanel tabPanel;
     private int selectedTab;
+    private Label response;
     
     @Inject
     public HelloViewImpl(final CommandEventBus eventBus, final GoodbyePresenter goodbye) {
         super(eventBus);
         
-        final Label label = new Label("N/A");
+        response = new Label("N/A");
         name = new TextBox();
         button = new Button("Say Hello");
         HTML html = new HTML();
+        Hyperlink sayGoodbye = new Hyperlink("Say goodbye", goodbye.getView().getLocation());
 
         VerticalPanel verticalPanel = new VerticalPanel();
+        verticalPanel.setSpacing(2);
         verticalPanel.add(name);
         verticalPanel.add(button);
-        verticalPanel.add(label);
+        verticalPanel.add(response);
         verticalPanel.add(html);
+        verticalPanel.add(sayGoodbye);
         
         tabPanel = new TabPanel();
         tabPanel.add(verticalPanel, "Hello");
         tabPanel.add(goodbye.getView().getImpl(), "Goodbye");
 
         tabPanel.selectTab(0);
-        
-        populate(eventBus.currentLocation(getLocation()));
         
         tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
             public void onSelection(SelectionEvent<Integer> event) {
@@ -69,7 +69,9 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                 if (selectedTab != 0) {
                     tabPanel.selectTab(0);
                 }
-                populate(location);
+                if (location.getParam(0) != null) {
+                    name.setValue(location.getParam(0));
+                }
             }});
         
         eventBus.add(new Location.Handler(goodbye.getView().getLocation()) {
@@ -78,35 +80,8 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                     tabPanel.selectTab(1);
                 }
             }});
-        
-        eventBus.add(new ResultEvent.Handler<HelloResult>(HelloResult.class){
-            public void handle(ResultEvent<HelloResult> event) {
-                label.setText(event.getResult().getModel().toString());
-            }});
-        
-        eventBus.add(new FailureEvent.Handler() {
-            public void handle(FailureEvent event) {
-                StringBuilder out = new StringBuilder();
-                if (event.getMessage() != null) {
-                    out.append(event.getMessage());
-                }
-                if (event.getMessage() != null && event.getThrowable() != null) {
-                    out.append(" ");
-                }
-                if (event.getThrowable() != null) {
-                    out.append("Caused by: ");
-                    out.append(event.getThrowable());
-                }
-                Window.alert(out.toString());
-            }});
 
         initWidget(tabPanel);
-    }
-    
-    private void populate(Location location) {
-        if (location != null && location.getParam(0) != null) {
-            name.setValue(location.getParam(0));
-        }
     }
     
     public HasClickHandlers getButton() {
@@ -114,8 +89,13 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
     }
     
     @Override
-    public HasValue<String> getName() {
+    public HasText getName() {
         return name;
+    }
+    
+    @Override
+    public HasText getResult() {
+        return response;
     }
 
     @Override

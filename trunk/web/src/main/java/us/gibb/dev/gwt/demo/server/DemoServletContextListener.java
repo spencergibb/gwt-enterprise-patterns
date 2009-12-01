@@ -24,7 +24,7 @@ public class DemoServletContextListener extends GuiceServletContextListener {
                         serve("/us.gibb.dev.gwt.demo.Application/gwt.rpc").with(AppengineRemoteServiceServlet.class);
                     }});
                 
-                scan(HelloCommandHandler.class.getPackage());
+                scan(SayHelloCommandHandler.class.getPackage());
                 
                 bind(CommandHandlerRegistry.class).toProvider(DefaultCommandHandlerRegistryProvider.class).in(Singleton.class);
 

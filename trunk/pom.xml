@@ -3,10 +3,10 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>us.gibb.dev</groupId>
-	<artifactId>gwt</artifactId>
+	<artifactId>gwt-ent</artifactId>
 	<packaging>pom</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<name>gwt</name>
+	<name>gwt-ent</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 
 	<organization>

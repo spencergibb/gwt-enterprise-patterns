@@ -4,14 +4,14 @@
 	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<artifactId>gwt</artifactId>
+		<artifactId>gwt-ent</artifactId>
 		<groupId>us.gibb.dev</groupId>
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>us.gibb.dev</groupId>
-	<artifactId>gwt-patterns</artifactId>
+	<artifactId>gwt-ent-patterns</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>gwt-patterns</name>
+	<name>gwt-ent-patterns</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<build>
 		<plugins>

@@ -84,6 +84,13 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
     public Location currentLocation(String requiredLocation) {
         return locationManager.currentLocation(requiredLocation);
     }
+    
+    public void fireCurrentLocation() {
+        Location currentLocation = locationManager.currentLocation();
+        if (currentLocation != null) {
+            fire(currentLocation);
+        }
+    }
 
     @Override
     public void failure(String msg) {

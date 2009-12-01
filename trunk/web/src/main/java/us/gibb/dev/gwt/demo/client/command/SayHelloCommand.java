@@ -1,15 +1,15 @@
-package us.gibb.dev.gwt.demo.client;
+package us.gibb.dev.gwt.demo.client.command;
 
 import us.gibb.dev.gwt.command.Command;
 
-public class HelloCommand implements Command<HelloResult> {
+public class SayHelloCommand implements Command<SayHelloResult> {
     private static final long serialVersionUID = 6440864902721536666L;
     private String name;
 
-    HelloCommand() {
+    SayHelloCommand() {
     }
     
-    public HelloCommand(String name) {
+    public SayHelloCommand(String name) {
         this.name = name;
     }
 
