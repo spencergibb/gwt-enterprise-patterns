@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ 
+ original https://svn.apache.org/repos/asf/tuscany/sandbox/sca-cloud-tutorial/cloud-appengine-sdk/build-appengine.xml
+-->
+<project name="Installer">
+
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+	  <classpath>
+	    <pathelement location="./ant-contrib-1.0b3.jar"/>
+	  </classpath>
+	</taskdef>
+
+    <property name="app.name" value="gwt" />
+	<property name="app.version" value="2.0.0-rc2" />
+	<property name="app.distribution.location" value="http://google-web-toolkit.googlecode.com/files/${app.name}-${app.version}.zip" />
+	<property name="artifacts" value="gwt-dev,gwt-servlet,gwt-soyc-vis,gwt-user"/>
+    <property name="artifact.prefix" value=""/> <!-- for example lib/ -->
+	<property name="verify.path" value="${localRepository}/com/google/gwt/gwt-dev/${app.version}/gwt-dev-${app.version}.jar" />
+	<property name="group.id" value="com.google.gwt" />
+
+    <property name="targetdir" value="${basedir}/../../../target" />
+    <property name="unpack.location" value="${targetdir}/${app.name}-${app.version}" />
+	<property name="download.path" value="${targetdir}/${app.name}-download/${app.name}-${app.version}.zip" />
+    <property name="localRepository" value="${user.home}/.m2/repository" />
+    <property name="mvngoal" value="install:install-file" />
+    <property name="mvnargs" value="" />
+
+	<target name="check-installed">
+		<condition property="already.installed">
+			<available file="${verify.path}" />
+		</condition>
+		<echo>Already installed ${already.installed}</echo>
+		<condition property="maven.suffix" value="">
+			<os family="unix" />
+		</condition>
+		<condition property="maven.suffix" value=".bat">
+			<os family="windows" />
+		</condition>
+	</target>
+
+	<target name="install" depends="check-installed" unless="already.installed">
+		<mkdir dir="${targetdir}/${app.name}-download/" />
+		<get src="${app.distribution.location}" dest="${download.path}" verbose="true" usetimestamp="true" />
+
+		<antcall target="unpack-zip" />
+		
+		<foreach list="${artifacts}" target="install-artifact" param="artifact" inheritall="true" inheritrefs="true" />
+	</target>
+	
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: install-artifact                      
+         - - - - - - - - - - - - - - - - - -->
+    <target name="install-artifact">
+        <exec executable="mvn${maven.suffix}" dir="${basedir}" failonerror="false">
+            <arg line="${mvngoal} ${mvnargs} -DgroupId=${group.id}  -DartifactId=${artifact} -Dversion=${app.version} -Dpackaging=jar -DgeneratePom=true -Dfile=${unpack.location}/${artifact.prefix}${artifact}.jar" />
+        </exec>
+    </target>
+
+
+	<target name="unpack-zip" depends="check-installed" unless="already.installed">
+		<mkdir dir="${targetdir}/unpack-temp/" />
+		<unzip src="${download.path}" dest="${targetdir}/unpack-temp/" overwrite="false" />
+		<move todir="${unpack.location}">
+			<fileset dir="${targetdir}/unpack-temp/${app.name}-${app.version}" />
+		</move>
+		<delete dir="${targetdir}/unpack-temp/" />
+	</target>
+
+
+	<target name="clean-files">
+		<delete dir="${unpack.location}" />
+	</target>
+</project>
