@@ -5,23 +5,26 @@ import us.gibb.dev.gwt.event.EventHandler;
 
 public class ResultEvent<R extends Result> extends Event<R, ResultEvent.Handler<R>> {
     private static final long serialVersionUID = -710409787744632889L;
+    private static final String TYPE_PREFIX = Result.class.getName()+"::";
 
     public abstract static class Handler<R extends Result> extends EventHandler<ResultEvent<R>> {
-        private Class<? extends Result> typeClass;
+        private Class<? extends Command<R>> typeClass;
 
-        public Handler(Class<R> typeClass) {
-            this.typeClass = typeClass;
+        public Handler(Class<? extends Command<R>> commandClass) {
+            this.typeClass = commandClass;
         }
 
         @Override
         public Object getTypeObject() {
-            return typeClass;
+            return createTypeObject(typeClass);
         }
         
     }
 
-    public ResultEvent(R result) {
+    private Class<? extends Command<R>> commandClass;
+    public ResultEvent(Class<? extends Command<R>> commandClass, R result) {
         super(result);
+        this.commandClass = commandClass;
     }
     
     public R getResult() {
@@ -30,6 +33,10 @@ public class ResultEvent<R extends Result> extends Event<R, ResultEvent.Handler<
 
     @Override
     public Object getTypeObject() {
-        return getResult().getClass();
+        return createTypeObject(commandClass);
+    }
+
+    private static String createTypeObject(Class<? extends Command<?>> clazz) {
+        return TYPE_PREFIX+clazz;
     }
 }
