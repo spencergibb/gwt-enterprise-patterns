@@ -11,6 +11,7 @@ import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.client.command.SayHelloCommand;
 import us.gibb.dev.gwt.demo.model.Hello;
+import us.gibb.dev.gwt.server.Context;
 import us.gibb.dev.gwt.server.MultiCommandHandler;
 
 import com.google.inject.Inject;
@@ -24,7 +25,7 @@ public class HelloCommandHandler extends MultiCommandHandler {
         this.pmf = pmf;
     }
     
-    public HelloResult sayHello(SayHelloCommand command) {
+    public HelloResult sayHello(SayHelloCommand command, Context context) {
         PersistenceManager pm = getPM();
         Hello hello = new Hello();
         hello.setName(command.getName());
@@ -34,7 +35,7 @@ public class HelloCommandHandler extends MultiCommandHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public HelloResult getHello(GetHelloCommand command) {
+    public HelloResult getHello(GetHelloCommand command, Context context) {
         PersistenceManager pm = getPM();
         Query query = pm.newQuery(Hello.class, "name == nameParam");
         query.setOrdering("createdDate desc");

@@ -5,7 +5,7 @@ import us.gibb.dev.gwt.command.CommandException;
 import us.gibb.dev.gwt.command.Dispatch;
 import us.gibb.dev.gwt.command.Result;
 
-public class DefaultDispatch implements Dispatch {
+public class DefaultDispatch implements Dispatch, Context {
     
     private CommandHandlerRegistry handlerRegistry;
 
@@ -13,16 +13,14 @@ public class DefaultDispatch implements Dispatch {
         this.handlerRegistry = handlerRegistry;
     }
     
-    @SuppressWarnings("unchecked")
     @Override
-    public <R extends Result> R execute(Command<R> command) throws CommandException {
-    //public <C extends Command<R>, R extends Result> R execute(C command) throws CommandException {
-        CommandHandler<?, R> handler = handlerRegistry.findHandler(command);
+    public <C extends Command<R>, R extends Result> R execute(C command) throws CommandException {
+        CommandHandler<C, R> handler = handlerRegistry.findHandler(command);
         if (handler == null) {
             throw new CommandException("Unable to find CommandHandler for command class: "+command.getClass());
         }
         try {
-            return (R) handler.exec(command);
+            return (R) handler.execute(command, this);
         } catch (CommandException e) {
             throw e;
         } catch (Exception e) {

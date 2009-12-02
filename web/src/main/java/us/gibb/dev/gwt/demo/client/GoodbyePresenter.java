@@ -36,7 +36,11 @@ public class GoodbyePresenter extends AbstractPresenter<GoodbyePresenter.View, C
         eventBus.add(new ResultEvent.Handler<HelloResult>(GetHelloCommand.class) {
             public void handle(ResultEvent<HelloResult> event) {
                 Hello hello = event.getResult().getHello();
-                view.getResult().setText("Said hello to "+hello.getName()+" on "+hello.getCreatedDate());
+                if (hello != null) {
+                    view.getResult().setText("Said hello to "+hello.getName()+" on "+hello.getCreatedDate());
+                } else {
+                    view.getResult().setText("Never said hello to them");
+                }
             }});
         
         view.getButton().addClickHandler(new ClickHandler() {
