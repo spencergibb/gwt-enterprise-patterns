@@ -26,7 +26,15 @@ public class DefaultCommandHandlerRegistry implements CommandHandlerRegistry {
     }
     
     public void add(CommandHandler<?, ?> handler) {
-        registry.put(handler.getCommandClass(), handler);
+        Map<Class<? extends Command<?>>, CommandHandler<?, ?>> commandMapping = handler.getCommandMapping();
+        for (Class<? extends Command<?>> commandClass : commandMapping.keySet()) {
+            if (registry.containsKey(commandClass)) {
+                //TODO move to log
+                System.err.println(this.getClass() +" already contains a CommandHandler for command: "+commandClass+", ignoring");
+            } else {
+                registry.put(commandClass, commandMapping.get(commandClass));
+            }
+        }
     }
 
 }
