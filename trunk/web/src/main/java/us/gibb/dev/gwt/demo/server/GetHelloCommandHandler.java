@@ -9,6 +9,7 @@ import javax.jdo.Query;
 import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.model.Hello;
+import us.gibb.dev.gwt.server.Context;
 import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 import us.gibb.dev.gwt.server.jdo.JDOCommandHandler;
 
@@ -24,7 +25,7 @@ public class GetHelloCommandHandler extends JDOCommandHandler<GetHelloCommand, H
 
     @SuppressWarnings("unchecked")
     @Override
-    protected HelloResult execute(PersistenceManager pm, GetHelloCommand command) {
+    protected HelloResult execute(PersistenceManager pm, GetHelloCommand command, Context context) {
         Query query = pm.newQuery(Hello.class, "name == nameParam");
         query.setOrdering("createdDate desc");
         query.declareParameters("String nameParam");

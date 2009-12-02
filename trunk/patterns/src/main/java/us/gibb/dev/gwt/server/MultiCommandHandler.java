@@ -12,7 +12,7 @@ import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 
 @DispatchIgnore
 @SuppressWarnings("unchecked")
-public abstract class MultiCommandHandler extends CommandHandler {
+public abstract class MultiCommandHandler extends AbstractCommandHandler {
     
     Map<Class<? extends Command<?>>, Method> commandMethods = new HashMap<Class<? extends Command<?>>, Method>();
     
@@ -21,10 +21,11 @@ public abstract class MultiCommandHandler extends CommandHandler {
         for (Method method : methods) {
             boolean returnsResult = Result.class.isAssignableFrom(method.getReturnType());
             Class<?>[] parameterTypes = method.getParameterTypes();
-            if (parameterTypes != null && parameterTypes.length == 1) {
-                boolean takesCommand = Command.class.isAssignableFrom(parameterTypes[0]);
-                boolean isChildMethod = method.getDeclaringClass() != MultiCommandHandler.class && method.getDeclaringClass() != CommandHandler.class;
-                if (takesCommand && returnsResult && isChildMethod) {
+            if (returnsResult && parameterTypes != null && parameterTypes.length == 2) {
+                boolean matches = Command.class.isAssignableFrom(parameterTypes[0]);
+                matches = matches && Context.class == parameterTypes[1];
+                matches = matches && method.getDeclaringClass() != MultiCommandHandler.class && method.getDeclaringClass() != AbstractCommandHandler.class;
+                if (matches) {
                     if (commandMethods.containsKey(parameterTypes[0])) {
                         //TODO move to log
                         System.err.println(this.getClass().getName() +" already contains a method for handling command: "+
@@ -39,14 +40,14 @@ public abstract class MultiCommandHandler extends CommandHandler {
     }
 
     @Override
-    public Result execute(Command command) throws CommandException {
+    public Result execute(Command command, Context context) throws CommandException {
         Method method = commandMethods.get(command.getClass());
         if (method == null) {
             throw new CommandException("Could not find method in "+getClass()+" to handle command: "+command.getClass());
         }
 
         try {
-            return (Result) method.invoke(this, command);
+            return (Result) method.invoke(this, command, context);
         } catch (InvocationTargetException e) {
             Throwable cause = e.getCause();
             if (cause != null && cause instanceof CommandException) {
@@ -60,7 +61,7 @@ public abstract class MultiCommandHandler extends CommandHandler {
 
     @Override
     public Map getCommandMapping() {
-        Map<Class<? extends Command<?>>, CommandHandler<?, ?>> mapping = new HashMap<Class<? extends Command<?>>, CommandHandler<?,?>>();
+        Map<Class<? extends Command<?>>, AbstractCommandHandler<?, ?>> mapping = new HashMap<Class<? extends Command<?>>, AbstractCommandHandler<?,?>>();
         for (Class<? extends Command<?>> commandClazz : commandMethods.keySet()) {
             mapping.put(commandClazz, this);
         }

@@ -6,11 +6,12 @@ import javax.jdo.PersistenceManagerFactory;
 import us.gibb.dev.gwt.command.Command;
 import us.gibb.dev.gwt.command.CommandException;
 import us.gibb.dev.gwt.command.Result;
-import us.gibb.dev.gwt.server.CommandHandler;
+import us.gibb.dev.gwt.server.AbstractCommandHandler;
+import us.gibb.dev.gwt.server.Context;
 import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 
 @DispatchIgnore
-public abstract class JDOCommandHandler<C extends Command<R>, R extends Result> extends CommandHandler<C, R> {
+public abstract class JDOCommandHandler<C extends Command<R>, R extends Result> extends AbstractCommandHandler<C, R> {
     
     private PersistenceManagerFactory pmf;
 
@@ -19,16 +20,16 @@ public abstract class JDOCommandHandler<C extends Command<R>, R extends Result> 
     }
 
     @Override
-    public R execute(C command) throws CommandException {
+    public R execute(C command, Context context) throws CommandException {
         PersistenceManager pm = pmf.getPersistenceManager();
         pm.setDetachAllOnCommit(true);
         try {
-            return execute(pm, command);
+            return execute(pm, command, context);
         } finally {
             pm.close();
         }
     }
 
-    protected abstract R execute(PersistenceManager pm, C command);
+    protected abstract R execute(PersistenceManager pm, C command, Context context);
 
 }

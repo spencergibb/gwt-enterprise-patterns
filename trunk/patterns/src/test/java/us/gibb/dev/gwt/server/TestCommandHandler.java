@@ -9,10 +9,10 @@ import com.google.inject.Guice;
 import com.google.inject.Singleton;
 
 @Singleton
-public class TestCommandHandler extends CommandHandler<TestCommand, TestResult> {
+public class TestCommandHandler extends AbstractCommandHandler<TestCommand, TestResult> {
 
     @Override
-    public TestResult execute(TestCommand command) throws CommandException {
+    public TestResult execute(TestCommand command, Context context) throws CommandException {
         return new TestResult();
     }
 
