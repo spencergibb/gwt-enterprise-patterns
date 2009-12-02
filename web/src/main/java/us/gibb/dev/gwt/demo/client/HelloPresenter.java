@@ -2,8 +2,8 @@ package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
+import us.gibb.dev.gwt.command.results.StringResult;
 import us.gibb.dev.gwt.demo.client.command.SayHelloCommand;
-import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.location.HasLocation;
 import us.gibb.dev.gwt.presenter.AbstractPresenter;
 import us.gibb.dev.gwt.view.WidgetView;
@@ -31,9 +31,9 @@ public class HelloPresenter extends AbstractPresenter<HelloPresenter.View, Comma
                 eventBus.fire(new SayHelloCommand(view.getName().getText()));
             }});
         
-        eventBus.add(new ResultEvent.Handler<HelloResult>(SayHelloCommand.class){
-            public void handle(ResultEvent<HelloResult> event) {
-                view.getResult().setText(event.getResult().getHello().toString());
+        eventBus.add(new ResultEvent.Handler<StringResult>(SayHelloCommand.class){
+            public void handle(ResultEvent<StringResult> event) {
+                view.getResult().setText(event.getResult().getString());
             }});
         
         eventBus.add(new AlertFailureEventHandler());

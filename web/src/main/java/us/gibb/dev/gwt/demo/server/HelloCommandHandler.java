@@ -7,6 +7,7 @@ import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
 import javax.jdo.Query;
 
+import us.gibb.dev.gwt.command.results.StringResult;
 import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.client.command.SayHelloCommand;
@@ -25,13 +26,13 @@ public class HelloCommandHandler extends MultiCommandHandler {
         this.pmf = pmf;
     }
     
-    public HelloResult sayHello(SayHelloCommand command, Context context) {
+    public StringResult sayHello(SayHelloCommand command, Context context) {
         PersistenceManager pm = getPM();
         Hello hello = new Hello();
         hello.setName(command.getName());
         hello.setCreatedDate(new Date());
         pm.makePersistent(hello);
-        return new HelloResult(hello);
+        return new StringResult(hello.toString());
     }
 
     @SuppressWarnings("unchecked")

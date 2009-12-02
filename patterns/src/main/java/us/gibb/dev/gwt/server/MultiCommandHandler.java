@@ -49,13 +49,13 @@ public abstract class MultiCommandHandler extends AbstractCommandHandler {
         try {
             return (Result) method.invoke(this, command, context);
         } catch (InvocationTargetException e) {
-            Throwable cause = e.getCause();
+            Throwable cause = e.getTargetException();
             if (cause != null && cause instanceof CommandException) {
                 throw (CommandException)cause;
             }
-            throw new CommandException("Error executing "+method, e);
+            throw new CommandException("Error executing "+method+": "+e.getMessage(), e);
         } catch (Exception e) {
-            throw new CommandException("Error executing "+method, e);
+            throw new CommandException("Error executing "+method+": "+e.getMessage(), e);
         }
     }
 
