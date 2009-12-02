@@ -2,7 +2,6 @@ package us.gibb.dev.gwt.command;
 
 import java.util.Set;
 
-import us.gibb.dev.gwt.command.CommandEvent.Handler;
 import us.gibb.dev.gwt.event.Event;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;

@@ -9,10 +9,12 @@ import javax.jdo.Query;
 import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.model.Hello;
+import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 import us.gibb.dev.gwt.server.jdo.JDOCommandHandler;
 
 import com.google.inject.Inject;
 
+@DispatchIgnore
 public class GetHelloCommandHandler extends JDOCommandHandler<GetHelloCommand, HelloResult> {
 
     @Inject
