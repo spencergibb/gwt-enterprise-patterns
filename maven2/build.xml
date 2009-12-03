@@ -26,16 +26,17 @@
 	    <pathelement location="./ant-contrib-1.0b3.jar"/>
 	  </classpath>
 	</taskdef>
-
+<!--
     <property name="app.name" value="gwt" />
 	<property name="app.version" value="2.0.0-rc2" />
 	<property name="app.distribution.location" value="http://google-web-toolkit.googlecode.com/files/${app.name}-${app.version}.zip" />
 	<property name="artifacts" value="gwt-dev,gwt-servlet,gwt-soyc-vis,gwt-user"/>
-    <property name="artifact.prefix" value=""/> <!-- for example lib/ -->
 	<property name="verify.path" value="${localRepository}/com/google/gwt/gwt-dev/${app.version}/gwt-dev-${app.version}.jar" />
 	<property name="group.id" value="com.google.gwt" />
-
-    <property name="targetdir" value="${basedir}/../../../target" />
+-->
+    <property name="artifact.prefix" value=""/> 
+    <property name="artifact.suffix" value=".jar"/> 
+    <property name="targetdir" value="${basedir}/target" />
     <property name="unpack.location" value="${targetdir}/${app.name}-${app.version}" />
 	<property name="download.path" value="${targetdir}/${app.name}-download/${app.name}-${app.version}.zip" />
     <property name="localRepository" value="${user.home}/.m2/repository" />
@@ -69,7 +70,7 @@
          - - - - - - - - - - - - - - - - - -->
     <target name="install-artifact">
         <exec executable="mvn${maven.suffix}" dir="${basedir}" failonerror="false">
-            <arg line="${mvngoal} ${mvnargs} -DgroupId=${group.id}  -DartifactId=${artifact} -Dversion=${app.version} -Dpackaging=jar -DgeneratePom=true -Dfile=${unpack.location}/${artifact.prefix}${artifact}.jar" />
+            <arg line="${mvngoal} ${mvnargs} -DgroupId=${group.id}  -DartifactId=${artifact} -Dversion=${app.version} -Dpackaging=jar -DgeneratePom=true -Dfile=${unpack.location}/${artifact.prefix}${artifact}${artifact.suffix}" />
         </exec>
     </target>
 
