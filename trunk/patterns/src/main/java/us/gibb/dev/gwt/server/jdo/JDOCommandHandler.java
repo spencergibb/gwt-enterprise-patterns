@@ -8,9 +8,7 @@ import us.gibb.dev.gwt.command.CommandException;
 import us.gibb.dev.gwt.command.Result;
 import us.gibb.dev.gwt.server.AbstractCommandHandler;
 import us.gibb.dev.gwt.server.Context;
-import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 
-@DispatchIgnore
 public abstract class JDOCommandHandler<C extends Command<R>, R extends Result> extends AbstractCommandHandler<C, R> {
     
     private PersistenceManagerFactory pmf;

@@ -11,11 +11,27 @@ import us.gibb.dev.gwt.command.Result;
 
 public abstract class AbstractCommandHandler<C extends Command<R>, R extends Result> implements CommandHandler<C, R> {
     
+    private Class<? extends Command<?>> commandClass;
+
     public abstract R execute(C command, Context context) throws CommandException;
     
+    public AbstractCommandHandler() {
+        commandClass = findCommandClass();
+    }
+    
+    public Class<? extends Command<?>> getCommandClass() {
+        return commandClass;
+    }
+
     @SuppressWarnings("unchecked")
-    protected Class<? extends Command<?>> getCommandClass() {
-        ParameterizedType genericSuperclass = (ParameterizedType)getClass().getGenericSuperclass();
+    protected Class<? extends Command<?>> findCommandClass() {
+        Type superclass = getClass().getGenericSuperclass();
+        ParameterizedType genericSuperclass = null;
+        try {
+            genericSuperclass = (ParameterizedType)superclass;
+        } catch (ClassCastException e) {
+            genericSuperclass = (ParameterizedType) getClass().getSuperclass().getGenericSuperclass();
+        }
         Type[] typeArgs = genericSuperclass.getActualTypeArguments();
         Class<? extends Command<?>> clazz = (Class<? extends Command<?>>)typeArgs[0];
         return clazz;

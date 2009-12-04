@@ -2,10 +2,10 @@ package us.gibb.dev.gwt.demo.server;
 
 import us.gibb.dev.gwt.command.Dispatch;
 import us.gibb.dev.gwt.server.CommandHandlerRegistry;
-import us.gibb.dev.gwt.server.inject.AppengineRemoteServiceServlet;
 import us.gibb.dev.gwt.server.inject.DefaultCommandHandlerRegistryProvider;
 import us.gibb.dev.gwt.server.inject.DefaultDispatchProvider;
 import us.gibb.dev.gwt.server.inject.DispatchModule;
+import us.gibb.dev.gwt.server.inject.PersistentRemoteServiceServlet;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -20,8 +20,7 @@ public class DemoServletContextListener extends GuiceServletContextListener {
             protected void configureDispatch() {
                 install(new ServletModule() {
                     protected void configureServlets() {
-                        //serve("/us.gibb.dev.gwt.demo.Application/gwt.rpc").with(GwtRpcRemoteServiceServlet.class);
-                        serve("/us.gibb.dev.gwt.demo.Application/gwt.rpc").with(AppengineRemoteServiceServlet.class);
+                        serve("/us.gibb.dev.gwt.demo.Application/gwt.rpc").with(PersistentRemoteServiceServlet.class);
                     }});
                 
                 scan(SayHelloCommandHandler.class.getPackage());
@@ -30,8 +29,7 @@ public class DemoServletContextListener extends GuiceServletContextListener {
 
                 bind(Dispatch.class).toProvider(DefaultDispatchProvider.class).in(Singleton.class);
                 
-                //bindEntityManagerFactoryProvider("transactions-optional");
-                configureJDO("transactions-optional");
+                configureJPA("transactions-optional", "REQUEST");
             }});
     }
 }
