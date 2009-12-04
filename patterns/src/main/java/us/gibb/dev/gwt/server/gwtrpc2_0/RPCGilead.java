@@ -32,28 +32,16 @@ import com.google.gwt.user.server.rpc.SerializationPolicy;
 import com.google.gwt.user.server.rpc.SerializationPolicyProvider;
 import com.google.gwt.user.server.rpc.UnexpectedException;
 import com.google.gwt.user.server.rpc.impl.LegacySerializationPolicy;
-import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamReaderCopy_GWT16;
-import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamWriterCopy_GWT16;
+import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamReader;
+import com.google.gwt.user.server.rpc.impl.ServerSerializationStreamWriter;
 
 /**
- * Utility class for integrating with the RPC system. This class exposes methods
- * for decoding of RPC requests, encoding of RPC responses, and invocation of
- * RPC calls on service objects. The operations exposed by this class can be
- * reused by framework implementors such as Spring and G4jsf to support a wide
- * range of service invocation policies.
- * 
- * <h3>Canonical Example</h3>
- * The following example demonstrates the canonical way to use this class.
- * 
- * {@example com.google.gwt.examples.rpc.server.CanonicalExample#processCall(String)}
- * 
- * <h3>Advanced Example</h3>
- * The following example shows a more advanced way of using this class to create
- * an adapter between GWT RPC entities and POJOs.
- * 
- * {@example com.google.gwt.examples.rpc.server.AdvancedExample#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)}
+ * <b>Copy of the RPCCopy_GWT16 from adapter4gwt.
+ * Since the class is final, method statics and invoke and encoding joined, I
+ * need to modify it to have a single invoke and a single encode method
+ * </b>
  */
-public final class RPCCopy_GWT20 {
+public final class RPCGilead {
 
   /**
    * Maps primitive wrapper classes to their corresponding primitive class.
@@ -234,7 +222,7 @@ public final class RPCCopy_GWT20 {
     ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 
     try {
-      ServerSerializationStreamReaderCopy_GWT16 streamReader = new ServerSerializationStreamReaderCopy_GWT16(
+      ServerSerializationStreamReader streamReader = new ServerSerializationStreamReader(
           classLoader, serializationPolicyProvider);
       streamReader.prepareToRead(encodedRequest);
 
@@ -361,7 +349,7 @@ public final class RPCCopy_GWT20 {
       throw new NullPointerException("serializationPolicy");
     }
 
-    if (serviceMethod != null && !RPCCopy_GWT20.isExpectedException(serviceMethod, cause)) {
+    if (serviceMethod != null && !RPCGilead.isExpectedException(serviceMethod, cause)) {
       throw new UnexpectedException("Service method '"
           + getSourceRepresentation(serviceMethod)
           + "' threw an unexpected exception: " + cause.toString(), cause);
@@ -554,6 +542,42 @@ public final class RPCCopy_GWT20 {
 
     return responsePayload;
   }
+  
+  /**
+   * Single invoke method
+   */
+  public static Object invoke(Object target,
+      Method serviceMethod, Object[] args) throws SerializationException, InvocationTargetException {
+      return invoke(target, serviceMethod, args, getDefaultSerializationPolicy());
+  }
+  /**
+   * Single invoke method.
+   */
+  public static Object invoke(Object target,
+          Method serviceMethod, Object[] args,
+          SerializationPolicy serializationPolicy) throws SerializationException, InvocationTargetException {
+        if (serviceMethod == null) {
+          throw new NullPointerException("serviceMethod");
+        }
+
+        if (serializationPolicy == null) {
+          throw new NullPointerException("serializationPolicy");
+        }
+
+        try {
+          return serviceMethod.invoke(target, args);
+        } catch (IllegalAccessException e) {
+          SecurityException securityException = new SecurityException(
+              formatIllegalAccessErrorMessage(target, serviceMethod));
+          securityException.initCause(e);
+          throw securityException;
+        } catch (IllegalArgumentException e) {
+          SecurityException securityException = new SecurityException(
+              formatIllegalArgumentErrorMessage(target, serviceMethod, args));
+          securityException.initCause(e);
+          throw securityException;
+        }
+      }
 
   /**
    * Returns a string that encodes the results of an RPC call. Private overload
@@ -570,8 +594,9 @@ public final class RPCCopy_GWT20 {
       boolean wasThrown, SerializationPolicy serializationPolicy)
       throws SerializationException {
 
-    ServerSerializationStreamWriterCopy_GWT16 stream = new ServerSerializationStreamWriterCopy_GWT16(
+    ServerSerializationStreamWriter stream = new ServerSerializationStreamWriter(
         serializationPolicy);
+
     stream.prepareToWrite();
     if (responseClass != void.class) {
       stream.serializeValue(object, responseClass);
@@ -825,7 +850,8 @@ public final class RPCCopy_GWT20 {
   /**
    * Static classes have no constructability.
    */
-  private RPCCopy_GWT20() {
+  private RPCGilead() {
     // Not instantiable
   }
 }
+

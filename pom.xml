@@ -37,13 +37,16 @@
 	</scm>
 
 	<properties>
-		<gwt.version>2.0.0-rc2</gwt.version>
-        <appengine.version>1.2.6</appengine.version>
+        <gwt.version>2.0.0-rc2</gwt.version>
+        <gwt.maven.version>1.2-SNAPSHOT</gwt.maven.version>
+        <appengine.version>1.2.8</appengine.version>
+        <gilead.version>1.2.3</gilead.version>
         <datanucleus.appengine.version>1.0.3</datanucleus.appengine.version>
 	</properties>
 	<modules>
 		<module>patterns</module>
-		<module>web</module>
+        <module>demo-appengine</module>
+        <module>demo-jpa</module>
 	</modules>
 	<build>
 		<plugins>

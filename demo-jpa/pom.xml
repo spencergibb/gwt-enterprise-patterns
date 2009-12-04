@@ -9,36 +9,97 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>us.gibb.dev</groupId>
-	<artifactId>gwt-ent-patterns</artifactId>
+	<artifactId>gwt-ent-demo-jpa</artifactId>
 	<version>1.0-SNAPSHOT</version>
-	<name>gwt-ent-patterns</name>
+	<packaging>war</packaging>
+	<name>gwt-ent-demo-jpa</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<build>
+		<finalName>${project.artifactId}</finalName>
+		<outputDirectory>war/WEB-INF/classes</outputDirectory>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<webappDirectory>${basedir}/war</webappDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>gwt-maven-plugin</artifactId>
+				<version>${gwt.maven.version}</version>
 				<executions>
 					<execution>
-						<id>attach-sources</id>
-						<phase>verify</phase>
 						<goals>
-							<goal>jar</goal>
+							<goal>compile</goal>
+							<!-- <goal>generateAsync</goal> -->
+							<goal>test</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
-					<attach>true</attach>
+					<style>DETAILED</style><!-- OBF -->
+					<webappDirectory>${basedir}/war</webappDirectory>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-eclipse-plugin</artifactId>
+				<configuration>
+					<downloadSources>true</downloadSources>
+					<downloadJavadocs>true</downloadJavadocs>
+					<buildOutputDirectory>${basedir}/war/WEB-INF/classes</buildOutputDirectory>
+					<wtpversion>1.5</wtpversion>
+					<wtpapplicationxml>true</wtpapplicationxml>
+					<classpathContainers>
+						<classpathContainer>org.eclipse.jdt.launching.JRE_CONTAINER</classpathContainer>
+						<classpathContainer>com.google.gwt.eclipse.core.GWT_CONTAINER</classpathContainer>
+					</classpathContainers>
+					<additionalProjectnatures>
+						<projectnature>com.google.gwt.eclipse.core.gwtNature</projectnature>
+					</additionalProjectnatures>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-clean-plugin</artifactId>
+				<configuration>
+					<filesets>
+						<fileset>
+							<directory>war</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>target</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+						<fileset>
+							<directory>tomcat</directory>
+							<followSymlinks>false</followSymlinks>
+						</fileset>
+					</filesets>
 				</configuration>
 			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
 		<dependency>
+			<artifactId>gwt-ent-patterns</artifactId>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+			<classifier>sources</classifier>
+			<scope>provided</scope>
+			<type>jar</type>
+		</dependency>
+		<dependency>
+			<artifactId>gwt-ent-patterns</artifactId>
+			<groupId>${project.groupId}</groupId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gwt-servlet</artifactId>
 			<version>${gwt.version}</version>
-			<scope>provided</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.gwt</groupId>
@@ -50,43 +111,26 @@
 			<groupId>com.google.gwt</groupId>
 			<artifactId>gin</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.google.inject</groupId>
 			<artifactId>guice</artifactId>
 			<version>2.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.google.appengine</groupId>
-			<artifactId>appengine-api-1.0-sdk</artifactId>
-			<version>${appengine.version}</version>
-			<scope>provided</scope>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-servlet</artifactId>
+			<version>2.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.jdo</groupId>
-			<artifactId>jdo2-api</artifactId>
-			<version>2.3-eb</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>net.sf.gilead</groupId>
-			<artifactId>adapter4appengine</artifactId>
-			<version>1.0M2</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.gilead</groupId>
 			<artifactId>adapter4gwt</artifactId>
 			<version>${gilead.version}</version>
-            <scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>${parent.groupId}</groupId>
@@ -106,27 +150,10 @@
 			<groupId>net.sf.gilead</groupId>
 			<artifactId>adapter-core</artifactId>
 			<version>${gilead.version}</version>
-            <scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
 					<artifactId>spring</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>commons-logging</groupId>
-					<artifactId>commons-logging</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>commons-lang</groupId>
-					<artifactId>commons-lang</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.beanlib</groupId>
-					<artifactId>beanlib</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>net.sf.beanlib</groupId>
-					<artifactId>beanlib-hibernate</artifactId>
 				</exclusion>
 				<exclusion>
 					<groupId>jboss</groupId>
@@ -150,7 +177,6 @@
 			<groupId>net.sf.gilead</groupId>
 			<artifactId>hibernate-jpa-util</artifactId>
 			<version>1.2.1</version>
-            <scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>net.sf.gilead</groupId>
@@ -168,23 +194,37 @@
 					<groupId>org.hibernate</groupId>
 					<artifactId>hibernate</artifactId>
 				</exclusion>
-				<exclusion>
-					<groupId>net.sf.beanlib</groupId>
-					<artifactId>beanlib-hibernate</artifactId>
-				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>3.4.0.GA</version>
+		</dependency>
+		<dependency>
+			<groupId>hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+			<version>1.8.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc14</artifactId>
+			<version>10.2.0.3.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.wideplay.warp.persist</groupId>
 			<artifactId>warp-persist</artifactId>
 			<version>2.0-20090214</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency> <!-- included because the 1.2.12 download breaks the build -->
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.15</version>
-			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-jdk14</artifactId>
+			<version>1.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

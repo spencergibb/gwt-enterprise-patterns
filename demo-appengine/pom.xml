@@ -9,10 +9,10 @@
 		<version>1.0-SNAPSHOT</version>
 	</parent>
 	<groupId>us.gibb.dev</groupId>
-	<artifactId>gwt-ent-demo</artifactId>
+	<artifactId>gwt-ent-demo-appengine</artifactId>
 	<version>1.0-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>gwt-ent-demo</name>
+	<name>gwt-ent-demo-appengine</name>
 	<url>http://gwt-enterprise-patterns.googlecode.com</url>
 	<build>
 		<finalName>${project.artifactId}</finalName>
@@ -54,7 +54,7 @@
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>gwt-maven-plugin</artifactId>
-				<version>1.2-SNAPSHOT</version>
+				<version>${gwt.maven.version}</version>
 				<executions>
 					<execution>
 						<goals>
@@ -189,12 +189,6 @@
 			<groupId>com.google.inject.extensions</groupId>
 			<artifactId>guice-servlet</artifactId>
 			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.persistence</groupId>
-			<artifactId>persistence-api</artifactId>
-			<version>1.0</version>
-			<scope>provided</scope>
 		</dependency>
 		<!--
 			http://lresende.blogspot.com/2009/10/google-appengine-sdk-and-maven.html

@@ -2,7 +2,7 @@ package us.gibb.dev.gwt.server.inject;
 
 import net.sf.gilead.adapter4appengine.EngineRemoteService;
 import net.sf.gilead.adapter4appengine.datanucleus.JdoEntityStore;
-import us.gibb.dev.gwt.server.gwtrpc2_0.RPCCopy_GWT20;
+import us.gibb.dev.gwt.server.gwtrpc2_0.RPCAppengine;
 
 import com.google.gwt.user.client.rpc.IncompatibleRemoteServiceException;
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -31,10 +31,10 @@ public class AppengineRemoteServiceServlet extends EngineRemoteService {
         JdoEntityStore.getInstance().setHttpSession(getThreadLocalRequest().getSession());
         
         try {
-            RPCRequest req = RPCCopy_GWT20.decodeRequest(payload, null, this);
+            RPCRequest req = RPCAppengine.decodeRequest(payload, null, this);
             onAfterRequestDeserialized(req);
             RemoteService service = getServiceInstance(req.getMethod().getDeclaringClass());
-            return RPCCopy_GWT20.invokeAndEncodeResponse(service, req.getMethod(), 
+            return RPCAppengine.invokeAndEncodeResponse(service, req.getMethod(), 
                     req.getParameters(), req.getSerializationPolicy());
         } catch (IncompatibleRemoteServiceException ex) {
             log("IncompatibleRemoteServiceException in the processCall(String) method.", ex);
