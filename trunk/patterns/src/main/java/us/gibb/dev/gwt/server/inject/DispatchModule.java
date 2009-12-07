@@ -9,6 +9,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.jdo.PersistenceManagerFactory;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 
 import net.sf.gilead.core.PersistentBeanManager;
 import us.gibb.dev.gwt.command.Dispatch;
@@ -16,13 +18,9 @@ import us.gibb.dev.gwt.server.CommandHandler;
 import us.gibb.dev.gwt.server.CommandHandlerRegistry;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
-import com.wideplay.warp.persist.PersistenceService;
-import com.wideplay.warp.persist.UnitOfWork;
-import com.wideplay.warp.persist.jpa.JpaUnit;
 
 public class DispatchModule extends AbstractModule {
     private ArrayList<Package> packages;
@@ -69,20 +67,10 @@ public class DispatchModule extends AbstractModule {
      * @param unitOfWork
      */
     protected void configureJPA(String persistenceUnitName, String unitOfWork) {
-        bindConstant().annotatedWith(JpaUnit.class).to(persistenceUnitName);
+        bindPersistenceUnitName(persistenceUnitName);
+        bind(EntityManagerFactory.class).toProvider(EntityManagerFactoryProvider.class).in(Singleton.class);
+        bind(EntityManager.class).toProvider(EntityManagerProvider.class).in(Singleton.class);
         bind(PersistentBeanManager.class).toProvider(PersistentBeanManagerProvider.class).in(Singleton.class);
-        install(PersistenceService.usingJpa()
-                .across(UnitOfWork.valueOf(unitOfWork))
-                .buildModule());
-        bind(PersistenceServiceInitializer.class).asEagerSingleton();
-    }
-    
-    private static class PersistenceServiceInitializer {
-        @SuppressWarnings("unused")
-        @Inject
-        PersistenceServiceInitializer(PersistenceService service) {
-            service.start(); 
-        } 
     }
     
     protected void configureJDO(String persistenceUnitName) {

@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -27,7 +28,8 @@ public class Hello extends LightEntity {
     public Hello() {}
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(generator = "helloid_generator")
+    @SequenceGenerator(name = "helloid_generator", sequenceName = "HELLO_SEQ", allocationSize = 1)
     public Long getId() {
         return id;
     }

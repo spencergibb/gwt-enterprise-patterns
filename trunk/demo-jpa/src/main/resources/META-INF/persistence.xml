@@ -5,8 +5,7 @@
         http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
 	version="1.0">
 
-	<persistence-unit name="transactions-optional"
-		transaction-type="RESOURCE_LOCAL">
+	<persistence-unit name="transactions-optional" transaction-type="RESOURCE_LOCAL">
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
 		<class>us.gibb.dev.gwt.demo.model.Hello</class>
 		
@@ -22,7 +21,7 @@
           <property name="hibernate.connection.username" value="demojpa"/>
           <property name="hibernate.connection.password" value="password"/>
           <property name="hibernate.dialect" value="org.hibernate.dialect.Oracle10gDialect" />
-          <property name="hibernate.hbm2ddl.auto" value="create" />
+          <property name="hibernate.hbm2ddl.auto" value="none" />
 		</properties>
 	</persistence-unit>
 
