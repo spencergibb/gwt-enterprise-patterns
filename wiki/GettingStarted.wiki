@@ -1,4 +1,4 @@
-#summary Getting started using the patters or building the examples
+#summary Getting started using the patterns examples
 
 = Introduction =
 
