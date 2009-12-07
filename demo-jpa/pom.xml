@@ -211,11 +211,6 @@
 			<artifactId>ojdbc14</artifactId>
 			<version>10.2.0.3.0</version>
 		</dependency>
-		<dependency>
-			<groupId>com.wideplay.warp.persist</groupId>
-			<artifactId>warp-persist</artifactId>
-			<version>2.0-20090214</version>
-		</dependency>
 		<dependency> <!-- included because the 1.2.12 download breaks the build -->
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
