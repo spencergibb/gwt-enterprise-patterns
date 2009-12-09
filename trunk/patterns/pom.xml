@@ -86,7 +86,7 @@
 			<groupId>net.sf.gilead</groupId>
 			<artifactId>adapter4gwt</artifactId>
 			<version>${gilead.version}</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>${parent.groupId}</groupId>
@@ -106,7 +106,7 @@
 			<groupId>net.sf.gilead</groupId>
 			<artifactId>adapter-core</artifactId>
 			<version>${gilead.version}</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>org.springframework</groupId>
@@ -150,7 +150,7 @@
 			<groupId>net.sf.gilead</groupId>
 			<artifactId>hibernate-jpa-util</artifactId>
 			<version>1.2.1</version>
-            <scope>provided</scope>
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>net.sf.gilead</groupId>
@@ -173,6 +173,12 @@
 					<artifactId>beanlib-hibernate</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<version>2.5.6</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency> <!-- included because the 1.2.12 download breaks the build -->
 			<groupId>log4j</groupId>

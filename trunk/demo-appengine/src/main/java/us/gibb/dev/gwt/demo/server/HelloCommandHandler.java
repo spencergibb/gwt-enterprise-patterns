@@ -12,8 +12,8 @@ import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.client.command.SayHelloCommand;
 import us.gibb.dev.gwt.demo.model.Hello;
-import us.gibb.dev.gwt.server.Context;
-import us.gibb.dev.gwt.server.MultiCommandHandler;
+import us.gibb.dev.gwt.server.command.handler.Context;
+import us.gibb.dev.gwt.server.command.handler.MultiCommandHandler;
 
 import com.google.inject.Inject;
 

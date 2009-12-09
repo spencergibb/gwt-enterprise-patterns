@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.server;
+package us.gibb.dev.gwt.server.command.handler;
 
 import us.gibb.dev.gwt.command.Command;
 import us.gibb.dev.gwt.command.Result;

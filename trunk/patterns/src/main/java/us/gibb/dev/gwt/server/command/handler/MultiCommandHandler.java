@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.server;
+package us.gibb.dev.gwt.server.command.handler;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -17,6 +17,7 @@ public abstract class MultiCommandHandler extends AbstractCommandHandler {
     Map<Class<? extends Command<?>>, Method> commandMethods = new HashMap<Class<? extends Command<?>>, Method>();
     
     protected MultiCommandHandler() {
+        super(null);
         Method[] methods = getClass().getMethods();
         for (Method method : methods) {
             boolean returnsResult = Result.class.isAssignableFrom(method.getReturnType());
