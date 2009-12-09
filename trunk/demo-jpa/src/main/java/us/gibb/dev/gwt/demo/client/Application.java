@@ -8,6 +8,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.ui.HTML;
+import com.google.gwt.user.client.ui.RootLayoutPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 /**
@@ -39,7 +40,8 @@ public class Application implements EntryPoint {
 			// bootstrap the currentLocation
 			injector.getEventBus().fireCurrentLocation();
 			
-            RootPanel.get(APP_ID).add(view.getImpl());
+            //RootPanel.get(APP_ID).add(view.getImpl());
+            RootLayoutPanel.get().add(view.getImpl());
 
 			displayApp(loading, APP_ID);
 		}
