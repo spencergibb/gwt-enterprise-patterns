@@ -27,7 +27,7 @@
 <project name="AppEngineSDKInstaller">
 
 
-	<property name="appengine.version" value="1.2.6" />
+	<property name="appengine.version" value="1.2.8" />
 	<property name="appengine.distribution.location" value="http://googleappengine.googlecode.com/files/appengine-java-sdk-${appengine.version}.zip" />
 	<property name="targetdir" value="${basedir}/../../../target" />
 	<property name="unpack.location" value="${targetdir}/appengine-java-sdk-${appengine.version}" />
