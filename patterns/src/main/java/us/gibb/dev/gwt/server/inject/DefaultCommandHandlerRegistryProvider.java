@@ -2,8 +2,8 @@ package us.gibb.dev.gwt.server.inject;
 
 import java.util.Set;
 
-import us.gibb.dev.gwt.server.CommandHandler;
-import us.gibb.dev.gwt.server.DefaultCommandHandlerRegistry;
+import us.gibb.dev.gwt.server.command.handler.CommandHandler;
+import us.gibb.dev.gwt.server.command.handler.DefaultCommandHandlerRegistry;
 
 import com.google.inject.Inject;
 import com.google.inject.Injector;

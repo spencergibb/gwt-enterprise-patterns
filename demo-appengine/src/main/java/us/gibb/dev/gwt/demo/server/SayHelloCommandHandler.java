@@ -8,7 +8,7 @@ import javax.jdo.PersistenceManagerFactory;
 import us.gibb.dev.gwt.command.results.StringResult;
 import us.gibb.dev.gwt.demo.client.command.SayHelloCommand;
 import us.gibb.dev.gwt.demo.model.Hello;
-import us.gibb.dev.gwt.server.Context;
+import us.gibb.dev.gwt.server.command.handler.Context;
 import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 import us.gibb.dev.gwt.server.jdo.JDOCommandHandler;
 

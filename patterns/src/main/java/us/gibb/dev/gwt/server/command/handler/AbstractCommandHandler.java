@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.server;
+package us.gibb.dev.gwt.server.command.handler;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
@@ -16,7 +16,11 @@ public abstract class AbstractCommandHandler<C extends Command<R>, R extends Res
     public abstract R execute(C command, Context context) throws CommandException;
     
     public AbstractCommandHandler() {
-        commandClass = findCommandClass();
+        this.commandClass = findCommandClass();
+    }
+    
+    public AbstractCommandHandler(Class<? extends Command<?>> commandClass) {
+        this.commandClass = commandClass;
     }
     
     public Class<? extends Command<?>> getCommandClass() {

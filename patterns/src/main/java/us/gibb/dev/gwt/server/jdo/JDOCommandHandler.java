@@ -6,8 +6,8 @@ import javax.jdo.PersistenceManagerFactory;
 import us.gibb.dev.gwt.command.Command;
 import us.gibb.dev.gwt.command.CommandException;
 import us.gibb.dev.gwt.command.Result;
-import us.gibb.dev.gwt.server.AbstractCommandHandler;
-import us.gibb.dev.gwt.server.Context;
+import us.gibb.dev.gwt.server.command.handler.AbstractCommandHandler;
+import us.gibb.dev.gwt.server.command.handler.Context;
 
 public abstract class JDOCommandHandler<C extends Command<R>, R extends Result> extends AbstractCommandHandler<C, R> {
     

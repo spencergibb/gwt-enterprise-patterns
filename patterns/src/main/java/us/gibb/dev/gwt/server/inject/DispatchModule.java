@@ -8,17 +8,11 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.jdo.PersistenceManagerFactory;
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-
-import net.sf.gilead.core.PersistentBeanManager;
 import us.gibb.dev.gwt.command.Dispatch;
-import us.gibb.dev.gwt.server.CommandHandler;
-import us.gibb.dev.gwt.server.CommandHandlerRegistry;
+import us.gibb.dev.gwt.server.command.handler.CommandHandler;
+import us.gibb.dev.gwt.server.command.handler.CommandHandlerRegistry;
 
 import com.google.inject.AbstractModule;
-import com.google.inject.Singleton;
 import com.google.inject.TypeLiteral;
 import com.google.inject.name.Names;
 
@@ -59,27 +53,6 @@ public class DispatchModule extends AbstractModule {
     
     protected <CH extends CommandHandler<?, ?>> void addCommandHandler(Class<CH> clazz) {
         classes.add(clazz);
-    }
-    
-    /**
-     * http://code.google.com/p/warp-persist/wiki/WarpPersist20
-     * @param persistenceUnitName
-     * @param unitOfWork
-     */
-    protected void configureJPA(String persistenceUnitName, String unitOfWork) {
-        bindPersistenceUnitName(persistenceUnitName);
-        bind(EntityManagerFactory.class).toProvider(EntityManagerFactoryProvider.class).in(Singleton.class);
-        bind(EntityManager.class).toProvider(EntityManagerProvider.class).in(Singleton.class);
-        bind(PersistentBeanManager.class).toProvider(PersistentBeanManagerProvider.class).in(Singleton.class);
-    }
-    
-    protected void configureJDO(String persistenceUnitName) {
-        bindPersistenceUnitName(persistenceUnitName);
-        bind(PersistenceManagerFactory.class).toProvider(PersistenceManagerFactoryProvider.class).in(Singleton.class);
-    }
-
-    private void bindPersistenceUnitName(String persistenceUnitName) {
-        bindConstant().annotatedWith(Names.named("persistence.unit.name")).to(persistenceUnitName);
     }
     
 }

@@ -1,11 +1,12 @@
 package us.gibb.dev.gwt.demo.server;
 
 import us.gibb.dev.gwt.command.Dispatch;
-import us.gibb.dev.gwt.server.CommandHandlerRegistry;
+import us.gibb.dev.gwt.server.command.handler.CommandHandlerRegistry;
 import us.gibb.dev.gwt.server.inject.DefaultCommandHandlerRegistryProvider;
 import us.gibb.dev.gwt.server.inject.DefaultDispatchProvider;
 import us.gibb.dev.gwt.server.inject.DispatchModule;
-import us.gibb.dev.gwt.server.inject.PersistentRemoteServiceServlet;
+import us.gibb.dev.gwt.server.jpa.inject.JPAModule;
+import us.gibb.dev.gwt.server.jpa.inject.PersistentRemoteServiceServlet;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -29,7 +30,7 @@ public class DemoServletContextListener extends GuiceServletContextListener {
 
                 bind(Dispatch.class).toProvider(DefaultDispatchProvider.class).in(Singleton.class);
                 
-                configureJPA("transactions-optional", "REQUEST");
+                install(new JPAModule("transactions-optional"));
             }});
     }
 }

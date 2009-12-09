@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.server.inject;
+package us.gibb.dev.gwt.server.jdo.inject;
 
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManagerFactory;

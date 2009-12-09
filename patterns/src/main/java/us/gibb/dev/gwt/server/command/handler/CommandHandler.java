@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.server;
+package us.gibb.dev.gwt.server.command.handler;
 
 import java.util.Map;
 

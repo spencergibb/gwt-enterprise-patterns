@@ -1,4 +1,4 @@
-package us.gibb.dev.gwt.server.inject;
+package us.gibb.dev.gwt.server.jpa.inject;
 
 import javax.persistence.EntityManagerFactory;
 
