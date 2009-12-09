@@ -4,15 +4,17 @@ import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
+import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DockLayoutPanel;
 import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.TabPanel;
+import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.inject.Inject;
@@ -21,7 +23,7 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
 
     private Button button;
     private TextBox name;
-    private TabPanel tabPanel;
+    private TabLayoutPanel tabPanel;
     private int selectedTab;
     private Label response;
     
@@ -43,7 +45,7 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
         verticalPanel.add(html);
         verticalPanel.add(sayGoodbye);
         
-        tabPanel = new TabPanel();
+        tabPanel = new TabLayoutPanel(28.0, Unit.PX);
         tabPanel.add(verticalPanel, "Hello");
         tabPanel.add(goodbye.getView().getImpl(), "Goodbye");
 
@@ -80,8 +82,13 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                     tabPanel.selectTab(1);
                 }
             }});
+        
+        DockLayoutPanel dockPanel = new DockLayoutPanel(Unit.PCT);
+        dockPanel.addWest(new HTML(), 20.0);
+        dockPanel.addEast(new HTML(), 20.0);
+        dockPanel.add(tabPanel);
 
-        initWidget(tabPanel);
+        initWidget(dockPanel);
     }
     
     public HasClickHandlers getButton() {
