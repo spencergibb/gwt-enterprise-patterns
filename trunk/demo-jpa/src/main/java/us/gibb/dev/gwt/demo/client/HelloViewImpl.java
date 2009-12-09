@@ -4,51 +4,44 @@ import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
-import com.google.gwt.dom.client.Style.Unit;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.DockLayoutPanel;
-import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
 import com.google.gwt.user.client.ui.TextBox;
-import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implements HelloPresenter.View {
 
-    private Button button;
-    private TextBox name;
-    private TabLayoutPanel tabPanel;
+    private static HelloViewImplUiBinder uiBinder = GWT.create(HelloViewImplUiBinder.class);
+
+    interface HelloViewImplUiBinder extends UiBinder<Widget, HelloViewImpl> { }
+
+    @UiField Button button;
+    @UiField TextBox name;
+    @UiField TabLayoutPanel tabPanel;
+    @UiField Label response;
+    @UiField Hyperlink sayGoodbye;
     private int selectedTab;
-    private Label response;
     
     @Inject
     public HelloViewImpl(final CommandEventBus eventBus, final GoodbyePresenter goodbye) {
         super(eventBus);
-        
-        response = new Label("N/A");
-        name = new TextBox();
-        button = new Button("Say Hello");
-        HTML html = new HTML();
-        Hyperlink sayGoodbye = new Hyperlink("Say goodbye", goodbye.getView().getLocation());
 
-        VerticalPanel verticalPanel = new VerticalPanel();
-        verticalPanel.setSpacing(2);
-        verticalPanel.add(name);
-        verticalPanel.add(button);
-        verticalPanel.add(response);
-        verticalPanel.add(html);
-        verticalPanel.add(sayGoodbye);
+        initWidget(uiBinder.createAndBindUi(this));
+
+        sayGoodbye.setTargetHistoryToken(goodbye.getView().getLocation());
         
-        tabPanel = new TabLayoutPanel(28.0, Unit.PX);
-        tabPanel.add(verticalPanel, "Hello");
         tabPanel.add(goodbye.getView().getImpl(), "Goodbye");
-
+        
         tabPanel.selectTab(0);
         
         tabPanel.addSelectionHandler(new SelectionHandler<Integer>() {
@@ -82,13 +75,6 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                     tabPanel.selectTab(1);
                 }
             }});
-        
-        DockLayoutPanel dockPanel = new DockLayoutPanel(Unit.PCT);
-        dockPanel.addWest(new HTML(), 20.0);
-        dockPanel.addEast(new HTML(), 20.0);
-        dockPanel.add(tabPanel);
-
-        initWidget(dockPanel);
     }
     
     public HasClickHandlers getButton() {
