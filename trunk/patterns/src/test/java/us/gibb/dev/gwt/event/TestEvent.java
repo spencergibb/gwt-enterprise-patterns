@@ -1,6 +1,6 @@
 package us.gibb.dev.gwt.event;
 
-import us.gibb.dev.gwt.location.LocationManager;
+import us.gibb.dev.gwt.location.DefaultLocationManager;
 
 
 /**
@@ -21,7 +21,7 @@ public class TestEvent extends Event<String, TestEvent.Handler> {
     }
 
     public static void main(String[] args) {
-        EventBus bus = new DefaultEventBus(new LocationManager());
+        EventBus bus = new DefaultEventBus(new DefaultLocationManager());
         bus.add(new Handler() {
             public void handle(TestEvent event) {
             }});
