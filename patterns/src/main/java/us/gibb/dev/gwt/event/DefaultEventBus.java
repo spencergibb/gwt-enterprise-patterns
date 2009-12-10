@@ -77,12 +77,20 @@ public class DefaultEventBus extends HandlerManager implements EventBus {
         locationManager.changeLocation(location, params);
     }
     
+    public void changeLocationIfNotCurrent(String location, String... params) {
+        locationManager.changeLocationIfNotCurrent(location, params);
+    }
+    
     public Location currentLocation() {
         return locationManager.currentLocation();
     }
     
     public Location currentLocation(String requiredLocation) {
         return locationManager.currentLocation(requiredLocation);
+    }
+    
+    public void addValueChangeHandler(ValueChangeHandler<String> handler) {
+        locationManager.addValueChangeHandler(handler);
     }
     
     public void fireCurrentLocation() {

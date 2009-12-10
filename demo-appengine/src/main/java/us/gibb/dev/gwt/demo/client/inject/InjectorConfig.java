@@ -21,6 +21,7 @@ public class InjectorConfig extends ClientDispatchModule {
         bind(GoodbyePresenter.View.class).to(GoodbyeViewImpl.class).in(Singleton.class);
         
 		bindDefaultCommandEventBus();
+		bindDefaultLocationManager();
 		bind(CommandClasses.class).to(DemoCommandClasses.class);
         
 		bindConstant().annotatedWith(Names.named("refresh.millis")).to(20000);
