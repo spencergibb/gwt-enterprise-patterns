@@ -23,7 +23,7 @@
                  <g:TextBox ui:field="name"/>
                  <g:Button styleName="{style.important}" ui:field="button">Say Hello</g:Button>
                  <g:Label ui:field="response" />
-                 <g:Hyperlink ui:field="sayGoodbye">Say Hello</g:Hyperlink>
+                 <g:Hyperlink ui:field="sayGoodbye">Say Goodbye</g:Hyperlink>
                </g:VerticalPanel>
              </g:tab>
              <!-- <g:tab>

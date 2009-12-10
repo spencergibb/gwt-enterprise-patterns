@@ -4,36 +4,33 @@ import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
-import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Hyperlink;
-import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
-import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
 public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implements HelloPresenter.View {
 
-    private static HelloViewImplUiBinder uiBinder = GWT.create(HelloViewImplUiBinder.class);
+    public interface HelloViewUiBinder extends UiBinder<Widget, HelloViewImpl> { }
 
-    interface HelloViewImplUiBinder extends UiBinder<Widget, HelloViewImpl> { }
-
-    @UiField Button button;
-    @UiField TextBox name;
+    @UiField HasClickHandlers button;
+    @UiField HasText name;
     @UiField TabLayoutPanel tabPanel;
-    @UiField Label response;
+    @UiField HasText response;
     @UiField Hyperlink sayGoodbye;
     private int selectedTab;
     
     @Inject
-    public HelloViewImpl(final CommandEventBus eventBus, final GoodbyePresenter goodbye) {
+    public HelloViewImpl(final CommandEventBus eventBus, final GoodbyePresenter goodbye, 
+            HelloViewUiBinder uiBinder) {
         super(eventBus);
 
         initWidget(uiBinder.createAndBindUi(this));
@@ -50,12 +47,19 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                     selectedTab = event.getSelectedItem();
                     switch (event.getSelectedItem()) {
                     case 1:
-                        eventBus.changeLocation(goodbye.getView().getLocation());
+                        eventBus.changeLocationIfNotCurrent(goodbye.getView().getLocation());
                         break;
                     default:
                         eventBus.changeLocation(getLocation());
                         break;
                     }
+                }
+            }});
+        
+        button.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                if (name.getText() != null && !name.getText().trim().isEmpty()) {
+                    sayGoodbye.setTargetHistoryToken(goodbye.getView().getLocation()+"/"+name.getText());
                 }
             }});
         
@@ -65,7 +69,7 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
                     tabPanel.selectTab(0);
                 }
                 if (location.getParam(0) != null) {
-                    name.setValue(location.getParam(0));
+                    name.setText(location.getParam(0));
                 }
             }});
         
