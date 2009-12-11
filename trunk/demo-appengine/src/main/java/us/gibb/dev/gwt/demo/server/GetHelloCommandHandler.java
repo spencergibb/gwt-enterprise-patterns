@@ -9,6 +9,7 @@ import javax.jdo.Query;
 import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.model.Hello;
+import us.gibb.dev.gwt.demo.model.vo.VO;
 import us.gibb.dev.gwt.server.command.handler.Context;
 import us.gibb.dev.gwt.server.inject.DispatchIgnore;
 import us.gibb.dev.gwt.server.jdo.JDOCommandHandler;
@@ -34,7 +35,7 @@ public class GetHelloCommandHandler extends JDOCommandHandler<GetHelloCommand, H
         if (results == null || results.isEmpty()) {
             return new HelloResult(null);
         }
-        return new HelloResult(results.get(0));
+        return new HelloResult(VO.toVO(results.get(0)));
     }
 
 }
