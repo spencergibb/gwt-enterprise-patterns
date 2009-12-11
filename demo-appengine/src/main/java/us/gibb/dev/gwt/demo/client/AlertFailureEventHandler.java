@@ -17,6 +17,7 @@ final class AlertFailureEventHandler extends FailureEvent.Handler {
             out.append(" ");
         }
         if (event.getThrowable() != null) {
+            event.getThrowable().printStackTrace();
             out.append("Caused by: ");
             out.append(event.getThrowable());
         }

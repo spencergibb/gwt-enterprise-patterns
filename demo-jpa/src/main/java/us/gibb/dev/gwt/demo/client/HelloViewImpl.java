@@ -7,6 +7,7 @@ import us.gibb.dev.gwt.view.AbstractWidgetView;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.dom.client.HasClickHandlers;
+import com.google.gwt.event.dom.client.HasKeyPressHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
 import com.google.gwt.uibinder.client.UiBinder;
@@ -14,6 +15,7 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HasText;
 import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.TabLayoutPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 
@@ -22,7 +24,7 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
     public interface HelloViewUiBinder extends UiBinder<Widget, HelloViewImpl> { }
 
     @UiField HasClickHandlers button;
-    @UiField HasText name;
+    @UiField TextBox name;
     @UiField TabLayoutPanel tabPanel;
     @UiField HasText response;
     @UiField Hyperlink sayGoodbye;
@@ -59,7 +61,8 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
         button.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 if (name.getText() != null && !name.getText().trim().isEmpty()) {
-                    sayGoodbye.setTargetHistoryToken(goodbye.getView().getLocation()+"/"+name.getText());
+                    Location location = new Location(goodbye.getView().getLocation(),name.getText());
+                    sayGoodbye.setTargetHistoryToken(location.toString());
                 }
             }});
         
@@ -87,6 +90,11 @@ public class HelloViewImpl extends AbstractWidgetView<CommandEventBus> implement
     
     @Override
     public HasText getName() {
+        return name;
+    }
+    
+    @Override
+    public HasKeyPressHandlers getNameKeys() {
         return name;
     }
     

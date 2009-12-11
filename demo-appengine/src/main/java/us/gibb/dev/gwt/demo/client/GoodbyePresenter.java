@@ -4,7 +4,7 @@ import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
 import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
-import us.gibb.dev.gwt.demo.model.Hello;
+import us.gibb.dev.gwt.demo.model.vo.HelloVO;
 import us.gibb.dev.gwt.location.HasLocation;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.presenter.AbstractPresenter;
@@ -35,7 +35,7 @@ public class GoodbyePresenter extends AbstractPresenter<GoodbyePresenter.View, C
         
         eventBus.add(new ResultEvent.Handler<HelloResult>(GetHelloCommand.class) {
             public void handle(ResultEvent<HelloResult> event) {
-                Hello hello = event.getResult().getHello();
+                HelloVO hello = event.getResult().getHello();
                 if (hello != null) {
                     view.getResult().setText("Said hello to "+hello.getName()+" on "+hello.getCreatedDate());
                 } else {

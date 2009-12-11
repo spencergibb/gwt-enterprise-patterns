@@ -12,6 +12,7 @@ import us.gibb.dev.gwt.demo.client.command.GetHelloCommand;
 import us.gibb.dev.gwt.demo.client.command.HelloResult;
 import us.gibb.dev.gwt.demo.client.command.SayHelloCommand;
 import us.gibb.dev.gwt.demo.model.Hello;
+import us.gibb.dev.gwt.demo.model.vo.VO;
 import us.gibb.dev.gwt.server.command.handler.Context;
 import us.gibb.dev.gwt.server.command.handler.MultiCommandHandler;
 
@@ -46,7 +47,7 @@ public class HelloCommandHandler extends MultiCommandHandler {
         if (results == null || results.isEmpty()) {
             return new HelloResult(null);
         }
-        return new HelloResult(results.get(0));
+        return new HelloResult(VO.toVO(results.get(0)));
     }
 
     private PersistenceManager getPM() {

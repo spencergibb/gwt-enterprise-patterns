@@ -30,8 +30,8 @@
 				<version>1.1.4</version><!-- 2.0.0-m2  -->
 				<configuration>
 					<verbose>true</verbose>
-                    <!-- <api>JPA</api> -->
-                    <api>JDO</api>
+					<!-- <api>JPA</api> -->
+					<api>JDO</api>
 					<mappingIncludes>**/*.jdo,**/model/**.class</mappingIncludes>
 					<enhancerName>ASM</enhancerName>
 				</configuration>
@@ -124,6 +124,26 @@
 					</filesets>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>us.gibb.dev</groupId>
+				<artifactId>vo-gen-mojo</artifactId>
+				<version>1.0</version>
+				<executions>
+					<execution>
+						<id>generate-sources</id>
+						<phase>generate-sources</phase>
+						<configuration>
+							<packages>
+								<package>us.gibb.dev.gwt.demo.model</package>
+							</packages>
+							<defaultPackage>us.gibb.dev.gwt.demo.model.vo</defaultPackage>
+						</configuration>
+						<goals>
+							<goal>vo-gen</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 			<!--
 				<plugin> <artifactId>maven-antrun-plugin</artifactId> <executions>
 				<execution> <phase>deploy</phase> <configuration> <tasks> <echo
@@ -145,6 +165,15 @@
 			-->
 		</plugins>
 	</build>
+
+	<pluginRepositories>
+		<pluginRepository>
+			<id>google-code</id>
+			<name>VO Gen SVN Repository</name>
+			<url>http://vo-gen.googlecode.com/svn/maven2/repo</url>
+		</pluginRepository>
+	</pluginRepositories>
+
 	<dependencies>
 		<dependency>
 			<artifactId>gwt-ent-patterns</artifactId>
@@ -228,11 +257,11 @@
 			<artifactId>persistence-api</artifactId>
 			<version>1.0</version>
 		</dependency>
-        <dependency>
-            <groupId>net.sf.gilead</groupId>
-            <artifactId>adapter4appengine</artifactId>
-            <version>1.0M2</version>
-        </dependency>
+		<dependency>
+			<groupId>net.sf.gilead</groupId>
+			<artifactId>adapter4appengine</artifactId>
+			<version>1.0M2</version>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
