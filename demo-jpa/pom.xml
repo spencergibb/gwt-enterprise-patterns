@@ -160,10 +160,6 @@
 					<artifactId>javassist</artifactId>
 				</exclusion>
 				<exclusion>
-					<groupId>jboss</groupId>
-					<artifactId>jboss-serialization</artifactId>
-				</exclusion>
-				<exclusion>
 					<groupId>com.thoughtworks.xstream</groupId>
 					<artifactId>xstream</artifactId>
 				</exclusion>
@@ -172,6 +168,11 @@
 					<artifactId>dom4j</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>trove</groupId>
+			<artifactId>trove</artifactId>
+			<version>1.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>net.sf.gilead</groupId>

@@ -6,6 +6,8 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -23,10 +25,13 @@ import net.sf.gilead.pojo.java5.LightEntity;
 @Table(name="recipe")
 public class Recipe extends LightEntity {
     private static final long serialVersionUID = -1508599717060362857L;
+    public enum Duration {SHORT, MEDIUM, LONG};
 
     private Long id;
     
     private String name;
+
+    private Duration duration = Duration.SHORT;
     
     private String text;
 
@@ -53,6 +58,15 @@ public class Recipe extends LightEntity {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public Duration getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Duration duration) {
+        this.duration = duration;
     }
 
     public String getText() {

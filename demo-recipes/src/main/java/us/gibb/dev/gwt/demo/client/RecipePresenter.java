@@ -6,6 +6,7 @@ import us.gibb.dev.gwt.demo.client.command.GetRecipeCommand;
 import us.gibb.dev.gwt.demo.client.command.RecipeResult;
 import us.gibb.dev.gwt.demo.client.command.SaveRecipeCommand;
 import us.gibb.dev.gwt.demo.model.Recipe;
+import us.gibb.dev.gwt.demo.model.Recipe.Duration;
 import us.gibb.dev.gwt.location.HasLocation;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.presenter.AbstractPresenter;
@@ -22,8 +23,11 @@ public class RecipePresenter extends AbstractPresenter<RecipePresenter.View, Com
         HasClickHandlers getSave();
         HasText getId();
         HasText getName();
+        HasText getDuration();
         HasText getText();
     }
+    
+    private Recipe recipe;
     
     @Inject
     protected RecipePresenter(final CommandEventBus eventBus, final View view) {
@@ -34,27 +38,39 @@ public class RecipePresenter extends AbstractPresenter<RecipePresenter.View, Com
                 String id = location.getParam(0);
                 if (id != null) {
                     eventBus.fire(new GetRecipeCommand(id));
+                } else {
+                    RecipePresenter.this.recipe = null;
                 }
             }});
         
         eventBus.add(new ResultEvent.Handler<RecipeResult>(GetRecipeCommand.class) {
             public void handle(ResultEvent<RecipeResult> event) {
-                Recipe recipe = event.getResult().getRecipe();
-                view.getId().setText(recipe.getId().toString());
-                view.getName().setText(recipe.getName());
-                view.getText().setText(recipe.getText());
+                populateView(event.getResult().getRecipe());
             }});
         
         getView().getSave().addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
-                Recipe recipe = new Recipe();
-                if (view.getId().getText() != null && !view.getId().getText().isEmpty()) {
-                    recipe.setId(new Long(view.getId().getText()));
-                }
-                recipe.setName(view.getName().getText());
-                recipe.setText(view.getText().getText());
-                eventBus.fire(new SaveRecipeCommand(recipe));
+                save();
             }});
         
+    }
+
+    private void populateView(Recipe r) {
+        recipe = r;
+        view.getId().setText(recipe.getId().toString());
+        view.getName().setText(recipe.getName());
+        view.getText().setText(recipe.getText());
+        view.getDuration().setText(recipe.getDuration().toString());
+    }
+
+    private void save() {
+        String id = view.getId().getText();
+        if (id == null || id.isEmpty()) { //add
+            recipe = new Recipe();
+        }
+        recipe.setName(view.getName().getText());
+        recipe.setText(view.getText().getText());
+        recipe.setDuration(Duration.valueOf(view.getDuration().getText()));
+        eventBus.fire(new SaveRecipeCommand(recipe));
     }
 }
