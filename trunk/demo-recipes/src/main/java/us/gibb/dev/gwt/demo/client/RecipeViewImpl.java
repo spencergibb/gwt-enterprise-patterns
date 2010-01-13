@@ -23,6 +23,9 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
     @UiField ListBox duration;
     @UiField TextArea text;
     @UiField HasText id;
+    @UiField TextBox ingredient1;
+    @UiField TextBox ingredient2;
+    @UiField TextBox ingredient3;
     private HasText durationHasText;
     
     @Inject
@@ -39,7 +42,7 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
         durationHasText = new HasText() {
             public void setText(String text) {
                 for (int i = 0; i < duration.getItemCount(); i++) {
-                    if (text.equals(duration.getValue(i))) {
+                    if (text != null && text.equals(duration.getValue(i))) {
                         duration.setSelectedIndex(i);
                     }
                 }
@@ -73,6 +76,21 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
     @Override
     public HasText getDuration() {
         return durationHasText;
+    }
+
+    @Override
+    public HasText getIngredient1() {
+        return ingredient1;
+    }
+
+    @Override
+    public HasText getIngredient2() {
+        return ingredient2;
+    }
+
+    @Override
+    public HasText getIngredient3() {
+        return ingredient3;
     }
     
     @Override

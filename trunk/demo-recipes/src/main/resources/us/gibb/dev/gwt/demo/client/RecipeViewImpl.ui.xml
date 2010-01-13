@@ -24,7 +24,16 @@
            <dd><g:ListBox ui:field="duration"/></dd>
 
            <dt><g:Label>Instructions</g:Label></dt>
-           <dd><g:TextArea ui:field="text"></g:TextArea></dd>
+           <dd><g:TextArea ui:field="text" /></dd>
+
+           <dt><g:Label>Ingredient 1</g:Label></dt>
+           <dd><g:TextBox ui:field="ingredient1" /></dd>
+
+           <dt><g:Label>Ingredient 2</g:Label></dt>
+           <dd><g:TextBox ui:field="ingredient2" /></dd>
+
+           <dt><g:Label>Ingredient 3</g:Label></dt>
+           <dd><g:TextBox ui:field="ingredient3" /></dd>
 
        </dl>
        <g:Button styleName="{style.important}" ui:field="save">Save</g:Button>

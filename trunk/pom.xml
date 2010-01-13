@@ -40,7 +40,7 @@
         <gwt.version>2.0.0</gwt.version>
         <gwt.maven.version>1.2-SNAPSHOT</gwt.maven.version>
         <appengine.version>1.2.8</appengine.version>
-        <gilead.version>1.2.3</gilead.version>
+        <gilead.version>1.2.1</gilead.version>
         <datanucleus.appengine.version>1.0.4</datanucleus.appengine.version>
 	</properties>
 	<modules>

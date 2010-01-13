@@ -87,7 +87,7 @@ public class Recipe extends LightEntity {
         this.createdDate = createdDate;
     }
     
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "RECIPE_ID", nullable = false)
     public Set<Ingredient> getIngredients() {
         return ingredients;
