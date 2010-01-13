@@ -21,7 +21,7 @@
            <dd><g:TextBox ui:field="name"></g:TextBox></dd>
 
            <dt><g:Label>Prep Time</g:Label></dt>
-           <dd><g:TextBox ui:field="duration"></g:TextBox></dd>
+           <dd><g:ListBox ui:field="duration"/></dd>
 
            <dt><g:Label>Instructions</g:Label></dt>
            <dd><g:TextArea ui:field="text"></g:TextArea></dd>

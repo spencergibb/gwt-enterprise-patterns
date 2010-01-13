@@ -1,12 +1,14 @@
 package us.gibb.dev.gwt.demo.client;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
+import us.gibb.dev.gwt.demo.model.Recipe.Duration;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
 import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.HasText;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.Widget;
@@ -18,9 +20,10 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
 
     @UiField HasClickHandlers save;
     @UiField TextBox name;
-    @UiField TextBox duration;
+    @UiField ListBox duration;
     @UiField TextArea text;
     @UiField HasText id;
+    private HasText durationHasText;
     
     @Inject
     public RecipeViewImpl(final CommandEventBus eventBus,
@@ -28,6 +31,23 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
         super(eventBus);
 
         initWidget(uiBinder.createAndBindUi(this));
+
+        for (Duration d : Duration.values()) {
+            duration.addItem(d.toString());
+        }
+        
+        durationHasText = new HasText() {
+            public void setText(String text) {
+                for (int i = 0; i < duration.getItemCount(); i++) {
+                    if (text.equals(duration.getValue(i))) {
+                        duration.setSelectedIndex(i);
+                    }
+                }
+            }
+            
+            public String getText() {
+                return duration.getValue(duration.getSelectedIndex());
+            }};
     }
 
     @Override
@@ -52,7 +72,7 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
     
     @Override
     public HasText getDuration() {
-        return duration;
+        return durationHasText;
     }
     
     @Override

@@ -64,6 +64,7 @@ public class RecipesViewImpl extends AbstractWidgetView<CommandEventBus> impleme
                         break;
                     default:
                         eventBus.changeLocation(getLocation());
+                        eventBus.fire(new GetRecipesCommand(name.getText()));
                         break;
                     }
                 }

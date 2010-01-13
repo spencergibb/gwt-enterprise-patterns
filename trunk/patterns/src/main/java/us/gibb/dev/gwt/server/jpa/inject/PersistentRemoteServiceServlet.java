@@ -35,6 +35,7 @@ public class PersistentRemoteServiceServlet extends PersistentRemoteService impl
      */
     @Override
     public String processCall(String payload) throws SerializationException {
+        getBeanManager().getPersistenceUtil().openSession(); //TODO: figure out why I have to do this
         return processCallHandler.processCall(payload, this);
     }
 

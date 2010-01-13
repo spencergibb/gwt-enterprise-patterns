@@ -39,7 +39,7 @@ public class RecipePresenter extends AbstractPresenter<RecipePresenter.View, Com
                 if (id != null) {
                     eventBus.fire(new GetRecipeCommand(id));
                 } else {
-                    RecipePresenter.this.recipe = null;
+                    resetView();
                 }
             }});
         
@@ -53,6 +53,14 @@ public class RecipePresenter extends AbstractPresenter<RecipePresenter.View, Com
                 save();
             }});
         
+    }
+
+    protected void resetView() {
+        recipe = null;
+        view.getId().setText(null);
+        view.getName().setText(null);
+        view.getText().setText(null);
+        view.getDuration().setText(Duration.SHORT.toString());
     }
 
     private void populateView(Recipe r) {
