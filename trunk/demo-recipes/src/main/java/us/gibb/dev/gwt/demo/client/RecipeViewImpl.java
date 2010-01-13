@@ -18,6 +18,7 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
 
     @UiField HasClickHandlers save;
     @UiField TextBox name;
+    @UiField TextBox duration;
     @UiField TextArea text;
     @UiField HasText id;
     
@@ -47,6 +48,11 @@ public class RecipeViewImpl extends AbstractWidgetView<CommandEventBus> implemen
     @Override
     public HasText getText() {
         return text;
+    }
+    
+    @Override
+    public HasText getDuration() {
+        return duration;
     }
     
     @Override

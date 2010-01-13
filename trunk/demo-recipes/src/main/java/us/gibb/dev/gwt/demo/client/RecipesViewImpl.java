@@ -1,12 +1,13 @@
 package us.gibb.dev.gwt.demo.client;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import us.gibb.dev.gwt.command.CommandEventBus;
 import us.gibb.dev.gwt.command.ResultEvent;
 import us.gibb.dev.gwt.demo.client.command.GetRecipesCommand;
 import us.gibb.dev.gwt.demo.client.command.RecipesResult;
-import us.gibb.dev.gwt.demo.model.Recipe;
+import us.gibb.dev.gwt.demo.client.command.RecipesResult.Row;
 import us.gibb.dev.gwt.location.Location;
 import us.gibb.dev.gwt.view.AbstractWidgetView;
 
@@ -14,6 +15,7 @@ import com.google.gwt.event.dom.client.HasClickHandlers;
 import com.google.gwt.event.dom.client.HasKeyPressHandlers;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.user.client.ui.Grid;
@@ -26,7 +28,7 @@ import com.google.inject.Inject;
 
 public class RecipesViewImpl extends AbstractWidgetView<CommandEventBus> implements RecipesPresenter.View {
 
-    private static final int NUM_COLS = 3;
+    private static final int NUM_COLS = 5;
 
     public interface RecipesViewUiBinder extends UiBinder<Widget, RecipesViewImpl> { }
 
@@ -92,21 +94,37 @@ public class RecipesViewImpl extends AbstractWidgetView<CommandEventBus> impleme
 
     private void initGrid() {
         grid.resize(1, NUM_COLS);
-        grid.setText(0, 0, "Id");
-        grid.setText(0, 1, "Recipe");
-        grid.setText(0, 2, "Actions");
+        int col = 0;
+        grid.setText(0, col++, "Id");
+        grid.setText(0, col++, "Recipe");
+        grid.setText(0, col++, "Prep Time");
+        grid.setText(0, col++, "Date");
+        grid.setText(0, col++, "Actions");
     }
     
-    protected void populateGrid(ArrayList<Recipe> recipes) {
+    protected void populateGrid(ArrayList<Row> recipes) {
         grid.resize(recipes.size() + 1, NUM_COLS);
         for (int i = 0; i < recipes.size(); i++) {
-            Recipe recipe = recipes.get(i);
+            Row recipe = recipes.get(i);
             int row = i+1;
-            String id = recipe.getId().toString();
-            grid.setHTML(row, 0, getHyperLinkHTML(id, "edit", id));
-            grid.setText(row, 1, recipe.getName());
-            grid.setHTML(row, 2, getHyperLinkHTML("Delete", "recipes", "delete", id));
+            String id = recipe.id.toString();
+            int col = 0;
+            grid.setHTML(row, col++, getHyperLinkHTML(id, "edit", id));
+            grid.setText(row, col++, recipe.name);
+            grid.setText(row, col++, recipe.duration.toString());
+            grid.setText(row, col++, format(recipe.createdDate));
+            grid.setHTML(row, col++, getHyperLinkHTML("Delete", "recipes", "delete", id));
         }
+    }
+
+    private String format(Date date) {
+        String formatted;
+        if (date != null) {
+            formatted = DateTimeFormat.getShortDateFormat().format(date);
+        } else {
+            formatted = "N/A";
+        }
+        return formatted;
     }
 
     private String getHyperLinkHTML(String text, String location, String ... params) {
