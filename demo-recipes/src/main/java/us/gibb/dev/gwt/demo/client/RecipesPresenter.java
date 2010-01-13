@@ -49,7 +49,7 @@ public class RecipesPresenter extends AbstractPresenter<RecipesPresenter.View, C
     }
 
     private void getRecipes() {
-        eventBus.changeLocation(getView().getLocation());
+        //eventBus.changeLocation(getView().getLocation());
         eventBus.fire(new GetRecipesCommand());
     }
 
