@@ -27,6 +27,10 @@ public class Ingredient extends LightEntity {
     
     public Ingredient() {}
 
+    public Ingredient(String text) {
+        this.text = text;
+    }
+
     @Id
     @GeneratedValue(generator = "ingredientid_generator")
     @SequenceGenerator(name = "ingredientid_generator", sequenceName = "INGREDIENT_SEQ", allocationSize = 1)
