@@ -1,0 +1,44 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+		/* Add CSS here. See the GWT docs on UI Binder for more details */
+		.important {
+			font-weight: bold;
+		}
+	</ui:style>
+	<!--
+		Add GWT widgets here. Enter < and hit Ctrl-Space to auto-complete
+		widget names. The ui:field attribute binds an element to a field in
+		the owner class. See the GWT docs on UI Binder for more details.
+	-->
+	<g:DockLayoutPanel unit="PCT">
+         <g:west size="20.0"> <g:Label /> </g:west>
+         <g:east size="20.0"> <g:Label /> </g:east>
+         <g:center>
+           <g:TabLayoutPanel ui:field="tabPanel" barHeight="28" barUnit="PX">
+             <g:tab>
+               <g:header>Recipes</g:header>
+               <g:DockLayoutPanel>
+                 <g:north size="30">
+	               <g:HorizontalPanel spacing="2">
+	                 <g:Label>Recipe Name Contains</g:Label>
+	                 <g:TextBox ui:field="name"/>
+                     <g:Button styleName="{style.important}" ui:field="button">Filter</g:Button>
+                     <g:Hyperlink ui:field="addLink">Add Recipe</g:Hyperlink>
+	               </g:HorizontalPanel>
+                 </g:north>
+                 <g:center>
+                    <g:Grid ui:field="grid">
+                    </g:Grid>
+                 </g:center>
+               </g:DockLayoutPanel>
+             </g:tab>
+             <!-- <g:tab>
+               <g:header>Goodbye</g:header>
+               <g:Label>Future</g:Label>
+             </g:tab> -->
+           </g:TabLayoutPanel>
+         </g:center>
+	</g:DockLayoutPanel>
+</ui:UiBinder> 

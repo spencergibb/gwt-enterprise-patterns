@@ -47,6 +47,8 @@
 		<module>patterns</module>
         <module>demo-appengine</module>
         <module>demo-jpa</module>
+        <module>demo-spring</module>
+        <module>demo-recipes</module>
 	</modules>
 	<build>
 		<plugins>

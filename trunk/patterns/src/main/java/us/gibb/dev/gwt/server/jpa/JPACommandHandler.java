@@ -44,6 +44,6 @@ public abstract class JPACommandHandler<C extends Command<R>, R extends Result> 
         return null;
     }
 
-    protected abstract R execute(EntityManager em, C command, Context context);
+    protected abstract R execute(EntityManager em, C command, Context context) throws CommandException;
 
 }
