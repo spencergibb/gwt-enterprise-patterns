@@ -28,20 +28,21 @@
 	</taskdef>
 <!--
     <property name="app.name" value="gwt" />
-	<property name="app.version" value="2.0.0-rc2" />
-	<property name="app.distribution.location" value="http://google-web-toolkit.googlecode.com/files/${app.name}-${app.version}.zip" />
-	<property name="artifacts" value="gwt-dev,gwt-servlet,gwt-soyc-vis,gwt-user"/>
-	<property name="verify.path" value="${localRepository}/com/google/gwt/gwt-dev/${app.version}/gwt-dev-${app.version}.jar" />
-	<property name="group.id" value="com.google.gwt" />
+    <property name="app.version" value="2.0.0-rc2" />
+    <property name="app.distribution.location" value="http://google-web-toolkit.googlecode.com/files/${app.name}-${app.version}.zip" />
+    <property name="artifacts" value="gwt-dev,gwt-servlet,gwt-soyc-vis,gwt-user"/>
+    <property name="verify.path" value="${localRepository}/com/google/gwt/gwt-dev/${app.version}/gwt-dev-${app.version}.jar" />
+    <property name="group.id" value="com.google.gwt" />
 -->
     <property name="artifact.prefix" value=""/> 
     <property name="artifact.suffix" value=".jar"/> 
     <property name="targetdir" value="${basedir}/target" />
     <property name="unpack.location" value="${targetdir}/${app.name}-${app.version}" />
-	<property name="download.path" value="${targetdir}/${app.name}-download/${app.name}-${app.version}.zip" />
+    <property name="download.path" value="${targetdir}/${app.name}-download/${app.name}-${app.version}.zip" />
     <property name="localRepository" value="${user.home}/.m2/repository" />
     <property name="mvngoal" value="install:install-file" />
     <property name="mvnargs" value="" />
+    <property name="distroInternalPath" value="${app.name}-${app.version}"/>
 
 	<target name="check-installed">
 		<condition property="already.installed">
@@ -79,7 +80,9 @@
 		<mkdir dir="${targetdir}/unpack-temp/" />
 		<unzip src="${download.path}" dest="${targetdir}/unpack-temp/" overwrite="false" />
 		<move todir="${unpack.location}">
-			<fileset dir="${targetdir}/unpack-temp/${app.name}-${app.version}" />
+			<fileset dir="${targetdir}/unpack-temp/">
+             <include name="${distroInternalPath}" />
+         </fileset>
 		</move>
 		<delete dir="${targetdir}/unpack-temp/" />
 	</target>
